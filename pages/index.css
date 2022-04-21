@@ -1,0 +1,226 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/InterWeb/inter.css);
+@import url(../blocks/page/page.css);
+
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__link/header__link.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/header/__line/header__line.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+
+
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  padding: 40px 0 0;
+  margin: 0;
+  width: 100%;
+  align-items: center;
+}
+
+@media screen and (max-width: 910px) {
+  .profile {
+    flex-direction: column;
+    padding: 42px 0 0;
+  }
+}
+
+.profile__avatar {
+  flex: 0 0 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile__info {
+  font-family: 'Inter';
+  font-style: normal;
+  color: #fff;
+  margin: 0 0 0 30px;
+  align-self: center;
+  position: relative;
+  padding: 0;
+}
+
+@media screen and (max-width: 910px) {
+  .profile__info {
+    margin: 26px 0 0;
+    text-align: center;
+  }
+}
+
+.profile__editButton {
+  background: url(../imgs/EditButtonDesctop.png) center no-repeat;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  right: -44px;
+  bottom: 9px;
+  transition: all 0.3s ease;
+}
+
+.profile__editButton:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 910px) {
+  .profile__editButton {
+    right: -30px;
+    width: 18px;
+    height: 18px;
+    background: url(../imgs/EditButtonMobile.png) center no-repeat;
+  }
+}
+
+.profile__info_name {
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0;
+  padding: 0;
+  max-width: 538px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+
+@media screen and (max-width: 910px) {
+  .profile__info_name {
+    font-size: 27px;
+    line-height: 33px;
+  }
+}
+
+.profile__info_description {
+  margin: 10px 0 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 910px) {
+  .profile__info_description {
+    margin: 5px 0 0;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.profile__add-button {
+  background: url(../imgs/AddButtonDesctop.png) center no-repeat;
+  width: 150px;
+  height: 50px;
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  transition: all 0.3s ease;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 910px) {
+  .profile__add-button {
+    margin: 35px 0 0;
+    width: 282px;
+    background: url(../imgs/AddButtonMobile.png) center no-repeat;
+  }
+}
+
+.elements {
+  padding: 45px 0 0;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px 17px;
+  grid-template-columns: repeat(3, 1fr);
+  box-sizing: border-box;
+  justify-items: center;
+  border: 1px solid red;
+}
+
+@media screen and (max-width: 910px) {
+  .elements {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 35px 0 0;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .elements {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+.element {
+  display: flex;
+  flex-direction: column;
+  width: 282px;
+  height: 361px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+
+.element__image {
+  width: 282px;
+  height: 282px;
+}
+
+.element__title {
+  position: relative;
+  padding: 0 20px;
+  height: 79px ;
+  background-color: #fff;
+  color: #000;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.element__text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.element__like {
+  border: none;
+  background: url(./imgs/like.png) center no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+  height: 19px;
+  width: 22px;
+  padding: 0;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.element__like:hover {
+  opacity: 0.5;
+}
+
+.element__like:active {
+  background: url(./imgs/likeActive.png) center no-repeat;
+  opacity: 1;
+}
