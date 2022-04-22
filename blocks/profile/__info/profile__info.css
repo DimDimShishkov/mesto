@@ -1,0 +1,16 @@
+.profile__info {
+  font-family: 'Inter';
+  font-style: normal;
+  color: #fff;
+  margin: 0 0 0 30px;
+  align-self: center;
+  position: relative;
+  padding: 0;
+}
+
+@media screen and (max-width: 940px) {
+  .profile__info {
+    margin: 26px 0 0;
+    text-align: center;
+  }
+}

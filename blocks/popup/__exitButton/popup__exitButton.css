@@ -1,0 +1,23 @@
+.popup__exitButton {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  border: none;
+  background: url(../../../imgs/CloseIconDesctop.png) center no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.popup__exitButton:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 660px) {
+  .popup__exitButton {
+    background: url(../../../imgs/CloseIconMobile.png) center no-repeat;
+    top: -43px;
+    right: -5px;
+  }
+}
