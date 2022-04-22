@@ -1,10 +1,10 @@
-.popup__info_name {
+.popup__name {
   margin: 35px 0 0;
   padding: 0;
 }
 
 @media screen and (max-width: 460px) {
-  .popup__info_name {
+  .popup__name {
     margin: 65px 0 0;
     padding: 0;
   }
