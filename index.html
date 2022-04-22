@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="./pages/index.css">
   <link rel="icon" href="./images/icon.jpg">
   <title>Проект: Место</title>
-  <script src="./pages/index.js"></script>
+  <script defer src="./pages/index.js"></script>
 </head>
 <body class="page">
 
@@ -17,6 +17,19 @@
     <div class="header__line"></div>
   </header>
 
+  <main class="main">
+  <section class="popup">
+    <div class="popup__container">
+      <h2 class="popup__form">Редактировать профиль</h2>
+      <input type="text" class="input__text popup__info_name"
+      placeholder="Введите имя профиля" value="Жак-Ив Кусто" >
+      <input type="text" class="input__text popup__info_description"
+      placeholder="Введите описание профиля" value="Исследователь океана">
+      <button class="popup__submitButton">Сохранить</button>
+      <button class="popup__exitButton"></button>
+    </div>
+  </section>
+
   <section class="profile">
     <img src="./imgs/avatar.jpg" alt="profileAvatar" class="profile__avatar">
     <div class="profile__info">
@@ -25,11 +38,7 @@
       </h4>
       <p class="profile__info_description">Исследователь океана</p>
     </div>
-    <button class="profile__add-button"></button>
-  </section>
-
-  <section class="form">
-    
+    <button class="profile__addButton"></button>
   </section>
 
   <section class="elements">
@@ -76,11 +85,11 @@
       </div>
     </article>
   </section>
+  </main>
 
   <footer class="footer">
     <a href="https://vk.com/dimdimshishov" 
     target="_blank" class="footer__copyright">
       © 2022. DimDim</a>
   </footer>
-
 </body></html>
