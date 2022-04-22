@@ -8,4 +8,5 @@
   font-family: 'Inter', sans-serif, Arial;
   color: #fff;
   text-rendering: optimizeLegibility;
+  overflow-y: scroll;
 }

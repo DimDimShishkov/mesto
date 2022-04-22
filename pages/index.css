@@ -1,6 +1,7 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/InterWeb/inter.css);
 @import url(../blocks/page/page.css);
+@import url(../blocks/page/themes/page_active.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__link/header__link.css);
@@ -9,8 +10,6 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-
-
 
 .profile {
   display: flex;
@@ -57,8 +56,7 @@
   height: 24px;
   cursor: pointer;
   border: none;
-  position: absolute;
-  right: -44px;
+  margin-left: 12px;
   bottom: 9px;
   transition: all 0.3s ease;
 }
@@ -69,7 +67,7 @@
 
 @media screen and (max-width: 940px) {
   .profile__editButton {
-    right: -30px;
+    margin-left: 3px;
     width: 18px;
     height: 18px;
     background: url(../imgs/EditButtonMobile.png) center no-repeat;
@@ -92,6 +90,7 @@
   .profile__info_name {
     font-size: 27px;
     line-height: 33px;
+    margin-left: 35px;
   }
 }
 
@@ -144,7 +143,6 @@
   grid-template-columns: repeat(3, 1fr);
   box-sizing: border-box;
   justify-items: center;
-  border: 1px solid red;
 }
 
 @media screen and (max-width: 940px) {
@@ -171,7 +169,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 1px solid red;
 }
 
 .element__image {
@@ -222,11 +219,35 @@
 
 .element__like:active {
   background: url(../imgs/likeActive.png) center no-repeat;
-  opacity: 1;
+  transform: scale(1.2);
+}
+
+.element__like_active {
+  background: url(../imgs/likeActive.png) center no-repeat;
 }
 
 .popup {
-  display: none;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.popup_opened {
+  opacity: 1;
+  z-index: 2;
+}
+
+.popup_opened.page {
+  position: fixed;
+}
+
+.popup__container {
   position: absolute;
   top: 195px;
   left: 50%;
@@ -236,21 +257,19 @@
   background: #fff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  z-index: 1;
+  z-index: 3;
   padding: 35px 36px;
-}
-
-.popup_opened {
-  display: block;
-}
-
-.popup__container {
-  display: flex;
-  flex-direction: column;
   color: #000;
-  height: 100%;
-  margin: 0;
-  position: relative;
+}
+
+@media screen and (max-width: 460px) {
+  .popup__container {
+    top: 123px;
+    width: 238px;
+    height: 272px;
+    padding: 25px 22px;
+    margin-left: -142px;
+  }
 }
 
 .popup__form {
@@ -259,6 +278,13 @@
   line-height: 29px;
   margin: 0;
   padding: 0;
+}
+
+@media screen and (max-width: 460px) {
+  .popup__form {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
 
 .input__text {
@@ -283,6 +309,13 @@
   padding: 0;
 }
 
+@media screen and (max-width: 460px) {
+  .popup__info_name {
+    margin: 65px 0 0;
+    padding: 0;
+  }
+}
+
 .popup__info_description {
   margin: 18px 0 0;
   padding: 0;
@@ -291,6 +324,8 @@
 .popup__submitButton {
   width: 100%;
   height: 50px;
+  margin: 48px 0 0;
+  padding: 0;
   background: #000000;
   border-radius: 2px;
   border: 1px solid #000;
@@ -303,14 +338,31 @@
   text-align: center;
 }
 
+@media screen and (max-width: 460px) {
+  .popup__submitButton {
+    margin: 44px 0 0;
+    height: 45px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
 .popup__exitButton {
   position: absolute;
-  top: -75px;
-  right: -75px;
+  top: -40px;
+  right: -40px;
   border: none;
   background: url(../imgs/CloseIconDesctop.png) center no-repeat;
   background-size: 100%;
   cursor: pointer;
   width: 32px;
   height: 32px;
+}
+
+@media screen and (max-width: 660px) {
+  .popup__exitButton {
+    background: url(../imgs/CloseIconMobile.png) center no-repeat;
+    top: -43px;
+    right: -5px;
+  }
 }
