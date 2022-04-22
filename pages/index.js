@@ -32,10 +32,10 @@ submitButton.addEventListener('click', function(event) {
     event.preventDefault();
 });
 
-let profileName = document.querySelector('.profile__info_name');
-let profileDescription = document.querySelector('.profile__info_description');
+let profileName = document.querySelector('.profile__name');
+let profileDescription = document.querySelector('.profile__description');
 
-let profileNameEdit = document.querySelector('.popup__info_name');
-let profileDescriptionEdit = document.querySelector('.popup__info_description');
+let profileNameEdit = document.querySelector('.popup__name');
+let profileDescriptionEdit = document.querySelector('.popup__description');
 
 
