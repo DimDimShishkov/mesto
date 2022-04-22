@@ -27,5 +27,15 @@ exitButton.addEventListener('click', function(event) {
 
 submitButton.addEventListener('click', function(event) {
     togglePopup();
+    profileName.textContent = profileNameEdit.value;
+    profileDescription.textContent = profileDescriptionEdit.value;
+    event.preventDefault();
 });
+
+let profileName = document.querySelector('.profile__info_name');
+let profileDescription = document.querySelector('.profile__info_description');
+
+let profileNameEdit = document.querySelector('.popup__info_name');
+let profileDescriptionEdit = document.querySelector('.popup__info_description');
+
 
