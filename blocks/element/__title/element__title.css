@@ -1,7 +1,6 @@
 .element__title {
   position: relative;
-  padding: 0 20px;
-  height: 79px;
+  padding: 25px 20px;
   background-color: #fff;
   color: #000;
   box-sizing: border-box;

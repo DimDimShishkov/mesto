@@ -1,6 +1,6 @@
 .element__like {
   border: none;
-  background: url(../../../imgs/like.png) center no-repeat;
+  background: url(../../../images/like.png) center no-repeat;
   background-size: 100%;
   cursor: pointer;
   height: 19px;
@@ -15,6 +15,6 @@
 }
 
 .element__like:active {
-  background: url(../../../imgs/likeActive.png) center no-repeat;
+  background: url(../../../images/likeActive.png) center no-repeat;
   transform: scale(1.2);
 }

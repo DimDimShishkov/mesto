@@ -9,4 +9,6 @@
   color: #fff;
   text-rendering: optimizeLegibility;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
