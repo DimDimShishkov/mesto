@@ -1,19 +1,30 @@
 let page = document.querySelector('.page');
 
-let editButton = document.querySelector('.profile__edit-button');
-let addButton = document.querySelector('.profile__add-button');
-let profileName = document.querySelector('.profile__name');
-let profileDescription = document.querySelector('.profile__description');
+let profile = page.querySelector('.profile');
+let profileInfo = profile.querySelector('.profile__info');
+let editButton = profileInfo.querySelector('.profile__edit-button');
+let profileName = profileInfo.querySelector('.profile__name');
+let profileDescription = profileInfo.querySelector('.profile__description');
+let addButton = profile.querySelector('.profile__add-button');
 
-let popup = document.querySelector('.popup');
-let submitButton = document.querySelector('.popup__submit-button');
-let exitButton = document.querySelector('.popup__exit-button');
-let profileNameEdit = document.querySelector('.popup__info_value_name');
-let profileDescriptionEdit = document.querySelector('.popup__info_value_description');
+let popup = page.querySelector('.popup');
+let popupContainer = popup.querySelector('.popup__container');
+let popupForm = popupContainer.querySelector('.popup__form');
+let submitButton = popupForm.querySelector('.popup__submit-button');
+let profileNameEdit = popupForm.querySelector('.popup__info_value_name');
+let profileDescriptionEdit = popupForm.querySelector('.popup__info_value_description');
+let exitButton = popupContainer.querySelector('.popup__exit-button');
 
 function togglePopup() {
     popup.classList.toggle('popup_opened');
     page.classList.toggle('page_active');
+};
+
+function formSubmitHandler() {
+    togglePopup();
+    profileName.textContent = profileNameEdit.value;
+    profileDescription.textContent = profileDescriptionEdit.value;
+    event.preventDefault();
 };
 
 editButton.addEventListener('click', function(event) {
@@ -27,12 +38,9 @@ exitButton.addEventListener('click', function(event) {
     togglePopup();
 });
 
-submitButton.addEventListener('click', function(event) {
-    togglePopup();
-    profileName.textContent = profileNameEdit.value;
-    profileDescription.textContent = profileDescriptionEdit.value;
-    event.preventDefault();
-});
+popupForm.addEventListener('submit', formSubmitHandler);
+submitButton.addEventListener('click', formSubmitHandler);
+
 /* Функция закрытия окна через нажатие на область вне всплывающего popup окна 
 (было на лайв-кодинге от Тиграна)
 popup.addEventListener('click', function(event) {

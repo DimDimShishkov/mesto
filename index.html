@@ -29,42 +29,42 @@
       alt="Карачаевск" class="element__image">
       <div class="element__title">
         <h2 class="element__text">Карачаевск</h2>
-        <button class="element__like" type="submit"></button>
+        <button class="element__like" type="button"></button>
       </div>
     </article>
     <article class="element">
       <img src="./images/Барселона.jpg" alt="Барселона" class="element__image">
       <div class="element__title">
         <h2 class="element__text">Барселона</h2>
-        <button class="element__like" type="submit"></button>
+        <button class="element__like" type="button"></button>
       </div>
     </article>
     <article class="element">
       <img src="./images/Берлин.jpg" alt="Берлин" class="element__image">
       <div class="element__title">
         <h2 class="element__text">Берлин</h2>
-        <button class="element__like" type="submit"></button>
+        <button class="element__like" type="button"></button>
       </div>
     </article>
     <article class="element">
       <img src="./images/Казахстан.png" alt="Казахстан" class="element__image">
       <div class="element__title">
         <h2 class="element__text">Казахстан</h2>
-        <button class="element__like" type="submit"></button>
+        <button class="element__like" type="button"></button>
       </div>
     </article>
     <article class="element">
       <img src="./images/Остров_Русский.jpg" alt="Остров Русский" class="element__image">
       <div class="element__title">
         <h2 class="element__text">Остров Русский</h2>
-        <button class="element__like" type="submit"></button>
+        <button class="element__like" type="button"></button>
       </div>
     </article>
     <article class="element">
       <img src="./images/Мадрид.jpg" alt="Мадрид" class="element__image">
       <div class="element__title">
         <h2 class="element__text">Мадрид</h2>
-        <button class="element__like" type="submit"></button>
+        <button class="element__like" type="button"></button>
       </div>
     </article>
   </section>
@@ -74,15 +74,17 @@
   </footer>
 
   <div class="popup">
-    <form class="popup__container" name="profile__informacion">
-      <h2 class="popup__form">Редактировать профиль</h2>
-      <input type="text" class="popup__info popup__info_value_name"
-      placeholder="Введите имя профиля" name="edit_name" value="Жак-Ив Кусто" >
-      <input type="text" class="popup__info popup__info_value_description"
-      placeholder="Введите описание профиля" name="edit_description" value="Исследователь океана">
-      <input type="submit" class="popup__submit-button" name="popup_submit" value="Сохранить">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="profile__informacion">
+        <input type="text" class="popup__info popup__info_value_name"
+        placeholder="Введите имя профиля" name="edit_name" value="Жак-Ив Кусто">
+        <input type="text" class="popup__info popup__info_value_description"
+        placeholder="Введите описание профиля" name="edit_description" value="Исследователь океана">
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
       <button class="popup__exit-button" type="button"></button>
-    </form>
+    </div>
   </div>
 
   <script defer src="./scripts/index.js"></script>
