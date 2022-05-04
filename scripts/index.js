@@ -41,12 +41,9 @@ exitButton.addEventListener('click', function(event) {
 popupForm.addEventListener('submit', formSubmitHandler);
 submitButton.addEventListener('click', formSubmitHandler);
 
-/* Функция закрытия окна через нажатие на область вне всплывающего popup окна 
-(было на лайв-кодинге от Тиграна)
 popup.addEventListener('click', function(event) {
     if(event.target == event.currentTarget){
         popup.classList.remove('popup_opened');
         page.classList.remove('page_active');
     }
-}); 
-*/
+});

@@ -1,92 +1,115 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
-  <title>Проект: Место</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Проект: Место</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <a href="#" class="header__link"></a>
+    </header>
 
-</head>
-<body class="page">
+    <section class="profile">
+      <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar" />
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button" type="button"></button>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button" type="button"></button>
+    </section>
 
-  <header class="header">
-    <a href="#" class="header__link"></a>
-  </header>
+    <section class="elements">
+      <article class="element">
+        <img
+          src="./images/kirill-pershin-1088404-unsplash.jpg"
+          alt="Карачаевск"
+          class="element__image"
+        />
+        <div class="element__title">
+          <h2 class="element__text">Карачаевск</h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img
+          src="./images/Барселона.jpg"
+          alt="Барселона"
+          class="element__image"
+        />
+        <div class="element__title">
+          <h2 class="element__text">Барселона</h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/Берлин.jpg" alt="Берлин" class="element__image" />
+        <div class="element__title">
+          <h2 class="element__text">Берлин</h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img
+          src="./images/Казахстан.png"
+          alt="Казахстан"
+          class="element__image"
+        />
+        <div class="element__title">
+          <h2 class="element__text">Казахстан</h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img
+          src="./images/Остров_Русский.jpg"
+          alt="Остров Русский"
+          class="element__image"
+        />
+        <div class="element__title">
+          <h2 class="element__text">Остров Русский</h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/Мадрид.jpg" alt="Мадрид" class="element__image" />
+        <div class="element__title">
+          <h2 class="element__text">Мадрид</h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </article>
+    </section>
 
-  <section class="profile">
-    <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar">
-    <div class="profile__info">
-      <h1 class="profile__name">Жак-Ив Кусто</h1>
-      <button class="profile__edit-button" type="button"></button>
-      <p class="profile__description">Исследователь океана</p>
+    <footer class="footer">
+      <p class="footer__copyright">© 2022 DimDim</p>
+    </footer>
+
+    <div class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="profile__informacion">
+          <input
+            required
+            type="text"
+            class="popup__info popup__info_value_name"
+            placeholder="Введите имя профиля"
+            name="edit_name"
+          />
+          <input
+            required
+            type="text"
+            class="popup__info popup__info_value_description"
+            placeholder="Введите описание профиля"
+            name="edit_description"
+          />
+          <button type="submit" class="popup__submit-button">Сохранить</button>
+        </form>
+        <button class="popup__exit-button" type="button"></button>
+      </div>
     </div>
-    <button class="profile__add-button" type="button"></button>
-  </section>
 
-  <section class="elements">
-    <article class="element">
-      <img src="./images/kirill-pershin-1088404-unsplash.jpg" 
-      alt="Карачаевск" class="element__image">
-      <div class="element__title">
-        <h2 class="element__text">Карачаевск</h2>
-        <button class="element__like" type="button"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img src="./images/Барселона.jpg" alt="Барселона" class="element__image">
-      <div class="element__title">
-        <h2 class="element__text">Барселона</h2>
-        <button class="element__like" type="button"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img src="./images/Берлин.jpg" alt="Берлин" class="element__image">
-      <div class="element__title">
-        <h2 class="element__text">Берлин</h2>
-        <button class="element__like" type="button"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img src="./images/Казахстан.png" alt="Казахстан" class="element__image">
-      <div class="element__title">
-        <h2 class="element__text">Казахстан</h2>
-        <button class="element__like" type="button"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img src="./images/Остров_Русский.jpg" alt="Остров Русский" class="element__image">
-      <div class="element__title">
-        <h2 class="element__text">Остров Русский</h2>
-        <button class="element__like" type="button"></button>
-      </div>
-    </article>
-    <article class="element">
-      <img src="./images/Мадрид.jpg" alt="Мадрид" class="element__image">
-      <div class="element__title">
-        <h2 class="element__text">Мадрид</h2>
-        <button class="element__like" type="button"></button>
-      </div>
-    </article>
-  </section>
-
-  <footer class="footer">
-    <p class="footer__copyright">© 2022 DimDim</p>
-  </footer>
-
-  <div class="popup">
-    <div class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="profile__informacion">
-        <input type="text" class="popup__info popup__info_value_name"
-        placeholder="Введите имя профиля" name="edit_name" value="Жак-Ив Кусто">
-        <input type="text" class="popup__info popup__info_value_description"
-        placeholder="Введите описание профиля" name="edit_description" value="Исследователь океана">
-        <button type="submit" class="popup__submit-button">Сохранить</button>
-      </form>
-      <button class="popup__exit-button" type="button"></button>
-    </div>
-  </div>
-
-  <script defer src="./scripts/index.js"></script>
-
-</body></html>
+    <script defer src="./scripts/index.js"></script>
+  </body>
+</html>
