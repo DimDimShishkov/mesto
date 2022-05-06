@@ -4,10 +4,8 @@
   height: 24px;
   cursor: pointer;
   border: none;
-  position: absolute;
-  right: -44px;
-  bottom: 44px;
   transition: all 0.3s ease;
+  margin: 5px 0 0 18px;
 }
 
 .profile__edit-button:hover {
@@ -16,10 +14,9 @@
 
 @media screen and (max-width: 940px) {
   .profile__edit-button {
-    margin-left: 3px;
+    margin-left: 10px;
     width: 18px;
     height: 18px;
-    right: -28px;
     bottom: 30px;
     background: url(../../../images/EditButtonMobile.svg) center no-repeat;
   }
