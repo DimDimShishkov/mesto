@@ -13,7 +13,9 @@ const popupInformacion = page.querySelector(".popup_type_info");
 const popupContainerInfo = popupInformacion.querySelector(
   ".popup__container_type_info"
 );
-const popupFormInfo = popupContainerInfo.querySelector(".popup__form_type_info");
+const popupFormInfo = popupContainerInfo.querySelector(
+  ".popup__form_type_info"
+);
 const submitButtonInfo = popupFormInfo.querySelector(
   ".popup__submit-button_type_info"
 );
@@ -41,6 +43,18 @@ const elementsImageEdit = popupFormImages.querySelector('[name="edit_image"]');
 const exitButtonImages = popupContainerImages.querySelector(
   ".popup__exit-button_type_images"
 );
+
+/* всплывающее окно для просмотра картинок */
+const popupImageContainer = page.querySelector(".popup_type_image");
+const popupImage = popupImageContainer.querySelector(".popup__image");
+const popupImageText = popupImageContainer.querySelector(".popup__description");
+const popupImageCloseButton = popupImageContainer.querySelector(
+  ".popup__exit-button_type_image"
+);
+
+popupImageCloseButton.addEventListener("click", function (evt) {
+  togglePopup(popupImageContainer);
+});
 
 const elements = page.querySelector(".elements");
 
@@ -89,6 +103,14 @@ popupImages.addEventListener("click", function (evt) {
   }
 });
 
+/* убирает попап для просмотра изображений при клике на области кроме окна попапа */
+popupImageContainer.addEventListener("click", function (evt) {
+  if (evt.target == evt.currentTarget) {
+    popupImageContainer.classList.remove("popup_opened");
+    page.classList.remove("page_active");
+  }
+});
+
 /* открытие попапа для загрузки изображений */
 addImageButton.addEventListener("click", function (evt) {
   togglePopup(popupImages);
@@ -111,23 +133,36 @@ const deleteImage = (evt) => {
 };
 
 const imageTemplate = document.querySelector("#image-template").content;
+const element = imageTemplate.querySelector(".element");
 
+/* открытие попапа для просмотра изображений */
+const handleImageClick = (evt) => {
+  togglePopup(popupImageContainer);
+  popupImageText.textContent = evt.target.alt;
+  popupImage.src = evt.target.src;
+  popupImage.alt = evt.target.alt;
+};
 
 /* функция добавления новой картинки, установка лайка и удаления */
 const addImage = (imageValue, titleValue) => {
-  const imageElement = imageTemplate.querySelector(".element").cloneNode(true);
-  imageElement.querySelector(".element__image").src = imageValue;
-  imageElement.querySelector(".element__text").textContent = titleValue;
-  elements.prepend(imageElement);
+  const elementClone = element.cloneNode(true);
+  const elementImage = elementClone.querySelector(".element__image");
+  const elementText = elementClone.querySelector(".element__text");
+  elementImage.src = imageValue;
+  elementText.textContent = titleValue;
+  elementImage.alt = titleValue;
+  elements.prepend(elementClone);
 
-  const likeImageButton = imageElement.querySelector(".element__like");
+  const likeImageButton = elementClone.querySelector(".element__like");
   likeImageButton.addEventListener("click", addLikeImage);
 
-  const deleteImageButton = imageElement.querySelector(".element__remove");
+  const deleteImageButton = elementClone.querySelector(".element__remove");
   deleteImageButton.addEventListener("click", deleteImage);
+
+  elementImage.addEventListener("click", handleImageClick);
 };
 
-/* функция внесения информации с попапа инфо в блок профиля */
+/* функция внесения информации с попапа картинок */
 const formSubmitHandlerImages = () => {
   addImage(elementsImageEdit.value, elementsTextEdit.value);
   event.preventDefault();
@@ -142,29 +177,29 @@ submitButtonImages.addEventListener("click", formSubmitHandlerImages);
 /* Шесть карточек «из коробки» */
 const initialCards = [
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
   },
   {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
   },
   {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
 ];
 
 initialCards.forEach(function (element) {
