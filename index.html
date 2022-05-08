@@ -24,74 +24,19 @@
     </section>
 
     <section class="elements">
-      <article class="element">
-        <img
-          src="./images/kirill-pershin-1088404-unsplash.jpg"
-          alt="Карачаевск"
-          class="element__image"
-        />
-        <div class="element__title">
-          <h2 class="element__text">Карачаевск</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img
-          src="./images/Барселона.jpg"
-          alt="Барселона"
-          class="element__image"
-        />
-        <div class="element__title">
-          <h2 class="element__text">Барселона</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img src="./images/Берлин.jpg" alt="Берлин" class="element__image" />
-        <div class="element__title">
-          <h2 class="element__text">Берлин</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img
-          src="./images/Казахстан.png"
-          alt="Казахстан"
-          class="element__image"
-        />
-        <div class="element__title">
-          <h2 class="element__text">Казахстан</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img
-          src="./images/Остров_Русский.jpg"
-          alt="Остров Русский"
-          class="element__image"
-        />
-        <div class="element__title">
-          <h2 class="element__text">Остров Русский</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img src="./images/Мадрид.jpg" alt="Мадрид" class="element__image" />
-        <div class="element__title">
-          <h2 class="element__text">Мадрид</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </article>
     </section>
 
     <footer class="footer">
       <p class="footer__copyright">© 2022 DimDim</p>
     </footer>
 
-    <div class="popup">
-      <div class="popup__container">
+    <div class="popup popup_type_info">
+      <div class="popup__container popup__container_type_info">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="profile__informacion">
+        <form
+          class="popup__form popup__form_type_info"
+          name="profile__informacion"
+        >
           <input
             required
             type="text"
@@ -106,11 +51,74 @@
             placeholder="Введите описание профиля"
             name="edit_description"
           />
-          <button type="submit" class="popup__submit-button">Сохранить</button>
+          <button
+            type="submit"
+            class="popup__submit-button popup__submit-button_type_info"
+          >
+            Сохранить
+          </button>
         </form>
-        <button class="popup__exit-button" type="button"></button>
+        <button
+          class="popup__exit-button popup__exit-button_type_info"
+          type="button"
+        ></button>
       </div>
     </div>
+
+    <div class="popup popup_type_images">
+      <div class="popup__container popup__container_type_images">
+        <h2 class="popup__title">Новое место</h2>
+        <form
+          class="popup__form popup__form_type_images"
+          name="element__informacion"
+        >
+          <input
+            required
+            type="text"
+            class="popup__info popup__info_value_name"
+            placeholder="Название"
+            name="edit_text"
+          />
+          <input
+            required
+            type="text"
+            class="popup__info popup__info_value_description"
+            placeholder="Ссылка на картинку"
+            name="edit_image"
+          />
+          <button
+            type="submit"
+            class="popup__submit-button popup__submit-button_type_images"
+          >
+            Сохранить
+          </button>
+        </form>
+        <button
+          class="popup__exit-button popup__exit-button_type_images"
+          type="button"
+        ></button>
+      </div>
+    </div>
+
+    <template id="image-template">
+      <article class="element">
+        <img src=" " alt="" class="element__image" />
+        <div class="element__title">
+          <h2 class="element__text"></h2>
+          <button class="element__like" type="button"></button>
+        </div>
+        <button class="element__remove" type="submit"></button>
+      </article>
+    </template>
+
+<!--     <div class="popup popup_type_image">
+      <div class="popup__container popup__container_type_image">
+        <button
+          class="popup__exit-button popup__exit-button_type_image"
+          type="button"
+        ></button>
+      </div>
+    </div> -->
 
     <script defer src="./scripts/index.js"></script>
   </body>
