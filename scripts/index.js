@@ -23,9 +23,6 @@ const profileNameEdit = popupFormInfo.querySelector('[name="edit_name"]');
 const profileDescriptionEdit = popupFormInfo.querySelector(
   '[name="edit_description"]'
 );
-const exitButtonInfo = popupContainerInfo.querySelector(
-  ".popup__exit-button_type_info"
-);
 
 /* всплывающее окно для добавления картинок */
 const popupImages = page.querySelector(".popup_type_images");
@@ -40,21 +37,11 @@ const submitButtonImages = popupFormImages.querySelector(
 );
 const elementsTextEdit = popupFormImages.querySelector('[name="edit_text"]');
 const elementsImageEdit = popupFormImages.querySelector('[name="edit_image"]');
-const exitButtonImages = popupContainerImages.querySelector(
-  ".popup__exit-button_type_images"
-);
 
 /* всплывающее окно для просмотра картинок */
 const popupImageContainer = page.querySelector(".popup_type_image");
 const popupImage = popupImageContainer.querySelector(".popup__image");
 const popupImageText = popupImageContainer.querySelector(".popup__description");
-const popupImageCloseButton = popupImageContainer.querySelector(
-  ".popup__exit-button_type_image"
-);
-
-popupImageCloseButton.addEventListener("click", function (evt) {
-  togglePopup(popupImageContainer);
-});
 
 const elements = page.querySelector(".elements");
 
@@ -64,50 +51,61 @@ const togglePopup = (popup) => {
   page.classList.toggle("page_active");
 };
 
+/* функция открытия попапа и блокировки страницы */
+const openPopup = (popup) => {
+  popup.classList.add("popup_opened");
+  page.classList.add("page_active");
+};
+
+/* функция закрытия попапа и разблокировки страницы */
+const closePopup = (popup) => {
+  popup.classList.remove("popup_opened");
+  page.classList.remove("page_active");
+};
+
 /* функция внесения информации с попапа инфо в блок профиля */
-const formSubmitHandlerInfo = () => {
-  togglePopup(popupInformacion);
+const handleProfileFormSubmit = (evt) => {
+  closePopup(popupInformacion);
   profileName.textContent = profileNameEdit.value;
   profileDescription.textContent = profileDescriptionEdit.value;
-  event.preventDefault();
+  evt.preventDefault();
 };
 
 /* открытие попапа для редактирования информации профиля */
 editButton.addEventListener("click", function (evt) {
-  togglePopup(popupInformacion);
+  openPopup(popupInformacion);
   profileNameEdit.value = profileName.textContent;
   profileDescriptionEdit.value = profileDescription.textContent;
   evt.preventDefault();
 });
 
-exitButtonInfo.addEventListener("click", function (evt) {
-  togglePopup(popupInformacion);
+/* закрытие любого попапа через крестик*/
+const closePopupButton = document.querySelectorAll(".popup__exit-button");
+closePopupButton.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
 });
 
-popupFormInfo.addEventListener("submit", formSubmitHandlerInfo);
-submitButtonInfo.addEventListener("click", formSubmitHandlerInfo);
+popupFormInfo.addEventListener("submit", handleProfileFormSubmit);
 
 /* убирает попап для редактирования профиля при клике на области кроме окна попапа */
 popupInformacion.addEventListener("click", function (evt) {
   if (evt.target == evt.currentTarget) {
-    popupInformacion.classList.remove("popup_opened");
-    page.classList.remove("page_active");
+    closePopup(popupInformacion);
   }
 });
 
 /* убирает попап для добавления изображений при клике на области кроме окна попапа */
 popupImages.addEventListener("click", function (evt) {
   if (evt.target == evt.currentTarget) {
-    popupImages.classList.remove("popup_opened");
-    page.classList.remove("page_active");
+    closePopup(popupImages);
   }
 });
 
 /* убирает попап для просмотра изображений при клике на области кроме окна попапа */
 popupImageContainer.addEventListener("click", function (evt) {
   if (evt.target == evt.currentTarget) {
-    popupImageContainer.classList.remove("popup_opened");
-    page.classList.remove("page_active");
+    closePopup(popupImageContainer);
   }
 });
 
@@ -117,13 +115,8 @@ addImageButton.addEventListener("click", function (evt) {
   evt.preventDefault();
 });
 
-/* закрытие попапа для загрузки изображений через крестик*/
-exitButtonImages.addEventListener("click", function (evt) {
-  togglePopup(popupImages);
-});
-
 /* функция добавления лайков на картинки */
-const addLikeImage = (evt) => {
+const toggleLike = (evt) => {
   evt.target.classList.toggle("element__like_active");
 };
 
@@ -136,43 +129,49 @@ const imageTemplate = document.querySelector("#image-template").content;
 const element = imageTemplate.querySelector(".element");
 
 /* открытие попапа для просмотра изображений */
-const handleImageClick = (evt) => {
+const handleCardClick = (imageValue, titleValue) => {
   togglePopup(popupImageContainer);
-  popupImageText.textContent = evt.target.alt;
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
+  popupImageText.textContent = titleValue;
+  popupImage.src = imageValue;
+  popupImage.alt = titleValue;
 };
 
-/* функция добавления новой картинки, установка лайка и удаления */
-const addImage = (imageValue, titleValue) => {
+/* функция создания новой картинки, установка лайка и удаления */
+const createCard = (imageValue, titleValue) => {
   const elementClone = element.cloneNode(true);
   const elementImage = elementClone.querySelector(".element__image");
   const elementText = elementClone.querySelector(".element__text");
   elementImage.src = imageValue;
   elementText.textContent = titleValue;
   elementImage.alt = titleValue;
-  elements.prepend(elementClone);
 
   const likeImageButton = elementClone.querySelector(".element__like");
-  likeImageButton.addEventListener("click", addLikeImage);
+  likeImageButton.addEventListener("click", toggleLike);
 
   const deleteImageButton = elementClone.querySelector(".element__remove");
   deleteImageButton.addEventListener("click", deleteImage);
 
-  elementImage.addEventListener("click", handleImageClick);
+  elementImage.addEventListener("click", () =>
+    handleCardClick(imageValue, titleValue)
+  );
+  return elementClone;
+}
+
+/* функция добавления новой картинки */
+const addImage = (imageValue, titleValue) => {
+  const cardElement = createCard(imageValue, titleValue);
+  elements.prepend(cardElement);
 };
 
 /* функция внесения информации с попапа картинок */
-const formSubmitHandlerImages = () => {
+const handleImagesFormSubmit = (evt) => {
   addImage(elementsImageEdit.value, elementsTextEdit.value);
-  event.preventDefault();
+  evt.preventDefault();
   togglePopup(popupImages);
-  elementsTextEdit.value = "";
-  elementsImageEdit.value = "";
+  evt.target.reset();
 };
 
-popupFormImages.addEventListener("submit", formSubmitHandlerImages);
-submitButtonImages.addEventListener("click", formSubmitHandlerImages);
+popupFormImages.addEventListener("submit", handleImagesFormSubmit);
 
 /* Шесть карточек «из коробки» */
 const initialCards = [
