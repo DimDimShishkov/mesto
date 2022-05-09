@@ -46,12 +46,6 @@ const popupImageText = popupImageContainer.querySelector(".popup__description");
 const elements = page.querySelector(".elements");
 
 /* функция открытия попапа и блокировки страницы */
-const togglePopup = (popup) => {
-  popup.classList.toggle("popup_opened");
-  page.classList.toggle("page_active");
-};
-
-/* функция открытия попапа и блокировки страницы */
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   page.classList.add("page_active");
@@ -111,7 +105,7 @@ popupImageContainer.addEventListener("click", function (evt) {
 
 /* открытие попапа для загрузки изображений */
 addImageButton.addEventListener("click", function (evt) {
-  togglePopup(popupImages);
+  openPopup(popupImages);
   evt.preventDefault();
 });
 
@@ -130,7 +124,7 @@ const element = imageTemplate.querySelector(".element");
 
 /* открытие попапа для просмотра изображений */
 const handleCardClick = (imageValue, titleValue) => {
-  togglePopup(popupImageContainer);
+  openPopup(popupImageContainer);
   popupImageText.textContent = titleValue;
   popupImage.src = imageValue;
   popupImage.alt = titleValue;
@@ -167,7 +161,7 @@ const addImage = (imageValue, titleValue) => {
 const handleImagesFormSubmit = (evt) => {
   addImage(elementsImageEdit.value, elementsTextEdit.value);
   evt.preventDefault();
-  togglePopup(popupImages);
+  closePopup(popupImages);
   evt.target.reset();
 };
 
