@@ -138,18 +138,15 @@ const createCard = (imageValue, titleValue) => {
   elementImage.src = imageValue;
   elementText.textContent = titleValue;
   elementImage.alt = titleValue;
-
   const likeImageButton = elementClone.querySelector(".element__like");
   likeImageButton.addEventListener("click", toggleLike);
-
   const deleteImageButton = elementClone.querySelector(".element__remove");
   deleteImageButton.addEventListener("click", deleteImage);
-
   elementImage.addEventListener("click", () =>
     handleCardClick(imageValue, titleValue)
   );
   return elementClone;
-}
+};
 
 /* функция добавления новой картинки */
 const addImage = (imageValue, titleValue) => {
