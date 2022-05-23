@@ -1,73 +1,79 @@
+const config = {
+  formSelector: "popup__form",
+  inputSelector: "popup__input",
+  submitButtonSelector: "popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_type_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
+
 // функция показа ошибки при введении неправильных значений
-const showValidationError = (formSelector, inputSelector, errorMessage) => {
-  const errorElement = formSelector.querySelector(
-    `.popup__input-error_type_${inputSelector.id}`
-  );
-  inputSelector.classList.add("popup__input_type_error");
+const showValidationError = ( errorElement, inputElement, errorMessage, inputErrorSelector, errorSelector) => {
+  inputElement.classList.add(inputErrorSelector);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__input-error_active");
+  errorElement.classList.add(errorSelector);
 };
 
 // функция скрытия ошибки при введении правильных значений
-const hideValidationError = (formSelector, inputSelector) => {
-  const errorElement = formSelector.querySelector(
-    `.popup__input-error_type_${inputSelector.id}`
-  );
-  inputSelector.classList.remove("popup__input_type_error");
-  errorElement.classList.remove("popup__input-error_active");
+const hideValidationError = ( errorElement, inputElement, inputErrorSelector, errorSelector) => {
+  inputElement.classList.remove(inputErrorSelector);
+  errorElement.classList.remove(errorSelector);
   errorElement.textContent = "";
 };
 
 // функция проверки инпута на ошибку
-const checkInputValidity = (formSelector, inputSelector) => {
-  if (!inputSelector.validity.valid) {
-    showValidationError(
-      formSelector,
-      inputSelector,
-      inputSelector.validationMessage
-    );
+const checkInputValidity = (errorElement, inputElement, inputErrorSelector, errorSelector) => {
+  if (!inputElement.validity.valid) {
+    showValidationError(errorElement, inputElement, inputElement.validationMessage, inputErrorSelector, errorSelector);
   } else {
-    hideValidationError(formSelector, inputSelector);
+    hideValidationError(errorElement, inputElement, inputErrorSelector, errorSelector);
   }
 };
 
 // функция проверки формы на ошибку
-const checkFormValidity = (form) => {
-  const submitButtonSelector = form.querySelector(
-    `.popup__submit-button_type_${form.name}`
-  );
-  if (form.checkValidity()) {
-    submitButtonSelector.disabled = false;
-    submitButtonSelector.classList.remove("popup__submit-button_type_disabled");
+const checkFormValidity = (formElement, submitButton, disabledSelector) => {
+  if (formElement.checkValidity()) {
+    submitButton.disabled = false;
+    submitButton.classList.remove(disabledSelector);
   } else {
-    submitButtonSelector.disabled = true;
-    submitButtonSelector.classList.add("popup__submit-button_type_disabled");
+    submitButton.disabled = true;
+    submitButton.classList.add(disabledSelector);
   }
 };
 
 // функция проверки вводимых данных в инпут
-const setEventListeners = (formSelector) => {
-  const inputSelector = Array.from(
-    formSelector.querySelectorAll(".popup__input")
-  );
-  inputSelector.forEach((input) => {
-    input.addEventListener("input", function () {
-      checkInputValidity(formSelector, input);
-      checkFormValidity(formSelector);
+const setEventListeners = (formElement, validationElement) => {
+  const { inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass} = validationElement;
+  const submitButton = formElement.querySelector(`.${submitButtonSelector}`);
+  const inputList = Array.from(formElement.querySelectorAll(`.${inputSelector}`));
+  inputList.forEach((inputElement) => {
+    const errorElement = formElement.querySelector(`.popup__input-error_type_${inputElement.id}`);
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(errorElement, inputElement, inputErrorClass, errorClass);
+      checkFormValidity(formElement, submitButton, inactiveButtonClass);
     });
   });
 };
 
-
-
 // функция запуски проверки
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll(".popup__form"));
-  formList.forEach((formSelector) => {
-    setEventListeners(formSelector);
-    checkFormValidity(formSelector);
+const enableValidation = (validConfig) => {
+  const { formSelector, submitButtonSelector } = validConfig;
+  const formList = Array.from(document.querySelectorAll(`.${formSelector}`));
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, validConfig);
+    const submitButton = formElement.querySelector(`.${submitButtonSelector}`);
   });
 };
 
-enableValidation();
+enableValidation(config);
 
+// функция сброса ошибок и блокировки кнокпи отправить при открытии формы 
+const openedFormReset = (formName) => {
+  formName.reset()
+  formName.querySelector(".popup__submit-button").disabled = true;
+  formName.querySelector(".popup__submit-button").classList.add('popup__submit-button_type_disabled');
+  formName.querySelectorAll(".popup__input-error").forEach((input) => {
+    input.classList.remove('popup__input-error_active')});
+  formName.querySelectorAll(".popup__input").forEach((input) => {
+    input.classList.remove('popup__input_type_error')});
+}

@@ -31,18 +31,24 @@ const popupImageContainer = page.querySelector(".popup_type_image");
 const popupImage = popupImageContainer.querySelector(".popup__image");
 const popupImageText = popupImageContainer.querySelector(".popup__description");
 
-const elements = page.querySelector(".elements");
+const elementsSection = page.querySelector(".elements");
 
 /* функция блокировки страницы при открытии любого попапа */
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   page.classList.add("page_active");
+  document.addEventListener("keydown", (evt) => {
+    setClosePopupListener(evt, popup);
+  })
 };
 
 /* функция разблокировки страницы при закрытии любого попапа */
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   page.classList.remove("page_active");
+  document.removeEventListener("keydown", (evt) => {
+    setClosePopupListener(evt, popup);
+  })
 };
 
 /* функция внесения информации с попапа инфо в блок профиля */
@@ -57,10 +63,9 @@ const handleProfileFormSubmit = (evt) => {
 editButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupInformacion);
+  openedFormReset(popupFormInfo);
   profileNameEdit.value = profileName.textContent;
   profileDescriptionEdit.value = profileDescription.textContent;
-  checkFormValidity(popupFormInfo);
-  setEventListeners(popupFormInfo);
 });
 
 /* закрытие любого попапа через крестик*/
@@ -72,7 +77,7 @@ closePopupButton.forEach((button) => {
 
 popupFormInfo.addEventListener("submit", handleProfileFormSubmit);
 
-/* закрытие любого попапа для при клике на области кроме окна попапа и по нажатию кнопки Esc */
+/* закрытие любого попапа для при клике на области кроме окна попапа */
 const popupWindow = Array.from(document.querySelectorAll(".popup"));
 popupWindow.forEach((popup) => {
   popup.addEventListener("click", function (evt) {
@@ -80,18 +85,21 @@ popupWindow.forEach((popup) => {
       closePopup(popup);
     }
   });
-  page.addEventListener("keydown", (evt) => {
+});
+
+/* закрытие любого попапа для при нажатии на кнопку Esc */
+const setClosePopupListener = (evt, popup) => {
     if (evt.key === "Escape") {
       closePopup(popup);
-    }
-  });
-});
+    };
+}
+
 
 /* открытие попапа для загрузки изображений */
 addImageButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupImages);
-  checkFormValidity(popupFormImages);
+  openedFormReset(popupFormImages);  
 });
 
 /* функция добавления лайков на картинки */
@@ -136,7 +144,7 @@ const createCard = (imageValue, titleValue) => {
 /* функция добавления новой картинки */
 const addImage = (imageValue, titleValue) => {
   const cardElement = createCard(imageValue, titleValue);
-  elements.prepend(cardElement);
+  elementsSection.prepend(cardElement);
 };
 
 /* функция внесения информации с попапа картинок */
@@ -180,3 +188,5 @@ const initialCards = [
 initialCards.forEach(function (element) {
   addImage(element.link, element.name);
 });
+
+
