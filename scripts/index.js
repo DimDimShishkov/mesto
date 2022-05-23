@@ -14,8 +14,8 @@ const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
 const submitButtonInfo = popupFormInfo.querySelector(
   ".popup__submit-button_type_info"
 );
-const profileNameEdit = document.getElementById("edit_name");
-const profileDescriptionEdit = document.getElementById("edit_description");
+const profileNameEdit = document.getElementById("edit-name");
+const profileDescriptionEdit = document.getElementById("edit-description");
 
 /* всплывающее окно для добавления картинок */
 const popupImages = page.querySelector(".popup_type_images");
