@@ -7,7 +7,6 @@
     <title>Проект: Место</title>
   </head>
   <body class="page">
-
     <header class="header">
       <a href="#" class="header__link"></a>
     </header>
@@ -33,24 +32,45 @@
     <div class="popup popup_type_info">
       <div class="popup__container popup__container_type_info">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form novalidate
+
+        <form
+          novalidate
           class="popup__form popup__form_type_info"
-          name="profile__informacion"
-        >
-          <input minlength="2" maxlength="40"
-            required
-            type="text"
-            class="popup__info popup__info_value_name"
-            placeholder="Введите имя профиля"
-            name="edit_name"
-          />
-          <input minlength="2" maxlength="200"
-            required
-            type="text"
-            class="popup__info popup__info_value_description"
-            placeholder="Введите описание профиля"
-            name="edit_description"
-          />
+          name="info">
+
+          <fieldset class="popup__fieldset">
+
+            <label class="popup__label popup__label_value_name">
+              <input
+                required
+                minlength="2"
+                maxlength="40"
+                type="text"
+                class="popup__input"
+                id="edit_name"
+                placeholder="Введите имя профиля"
+              />
+              <span
+                class="popup__input-error popup__input-error_type_edit_name"
+              ></span>
+            </label>
+
+          <label class="popup__label popup__label_value_description">
+            <input
+              required
+              minlength="2"
+              maxlength="200"
+              type="text"
+              class="popup__input"
+              id="edit_description"
+              placeholder="Введите описание профиля"
+            />
+            <span
+              class="popup__input-error popup__input-error_type_edit_description"
+            ></span>
+          </label>
+
+        </fieldset>
           <button
             type="submit"
             class="popup__submit-button popup__submit-button_type_info"
@@ -58,55 +78,64 @@
             Сохранить
           </button>
         </form>
-        <button
-          class="popup__exit-button"
-          type="button"
-        ></button>
+        <button class="popup__exit-button" type="button"></button>
       </div>
     </div>
 
     <div class="popup popup_type_images">
       <div class="popup__container popup__container_type_images">
         <h2 class="popup__title">Новое место</h2>
-        <form novalidate
+
+        <form
+          novalidate
           class="popup__form popup__form_type_images"
-          name="element__informacion"
+          name="images"
         >
-          <input
-            required
-            type="text"
-            class="popup__info popup__info_value_name"
-            placeholder="Название"
-            name="edit_text"
-          />
-          <input
-            required
-            type="url"
-            class="popup__info popup__info_value_description"
-            placeholder="Ссылка на картинку"
-            name="edit_image"
-          />
+        <fieldset class="popup__fieldset">
+          <label class="popup__label popup__label_value_name">
+            <input
+              required
+              minlength="2"
+              maxlength="30"
+              type="text"
+              class="popup__input"
+              id="image-name"
+              placeholder="Название"
+            />
+            <span
+              class="popup__input-error popup__input-error_type_image-name"
+            ></span>
+          </label>
+
+          <label class="popup__label popup__label_value_description">
+            <input
+              required
+              type="url"
+              class="popup__input"
+              id="image-link"
+              placeholder="Ссылка на картинку"
+            />
+            <span
+              class="popup__input-error popup__input-error_type_image-link"
+            ></span>
+          </label>
+        </fieldset>
+
           <button
             type="submit"
-            class="popup__submit-button popup__submit-button_type_images"
-          >
-            Сохранить
+            class="popup__submit-button popup__submit-button_type_images">
+            Создать
           </button>
         </form>
-        <button
-          class="popup__exit-button"
-          type="button"
-        ></button>
+
+        <button class="popup__exit-button" type="button"></button>
       </div>
     </div>
 
     <div class="popup popup_type_image">
       <div class="popup__looking">
         <img src=" " alt="" class="popup__image" />
-        <button
-          class="popup__exit-button"
-          type="button"
-        ></button>
+        <button class="popup__exit-button" type="button"></button>
         <h2 class="popup__description"></h2>
       </div>
     </div>
@@ -123,5 +152,6 @@
     </template>
 
     <script defer src="./scripts/index.js"></script>
+    <script defer src="./scripts/validate.js"></script>
   </body>
 </html>

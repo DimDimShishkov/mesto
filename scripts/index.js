@@ -10,33 +10,21 @@ const addButton = profile.querySelector(".profile__add-button");
 
 /* всплывающее окно для изменения имени профиля */
 const popupInformacion = page.querySelector(".popup_type_info");
-const popupContainerInfo = popupInformacion.querySelector(
-  ".popup__container_type_info"
-);
-const popupFormInfo = popupContainerInfo.querySelector(
-  ".popup__form_type_info"
-);
+const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
 const submitButtonInfo = popupFormInfo.querySelector(
   ".popup__submit-button_type_info"
 );
-const profileNameEdit = popupFormInfo.querySelector('[name="edit_name"]');
-const profileDescriptionEdit = popupFormInfo.querySelector(
-  '[name="edit_description"]'
-);
+const profileNameEdit = document.getElementById("edit_name");
+const profileDescriptionEdit = document.getElementById("edit_description");
 
 /* всплывающее окно для добавления картинок */
 const popupImages = page.querySelector(".popup_type_images");
-const popupContainerImages = popupImages.querySelector(
-  ".popup__container_type_images"
-);
-const popupFormImages = popupContainerImages.querySelector(
-  ".popup__form_type_images"
-);
+const popupFormImages = popupImages.querySelector(".popup__form_type_images");
 const submitButtonImages = popupFormImages.querySelector(
   ".popup__submit-button_type_images"
 );
-const elementsTextEdit = popupFormImages.querySelector('[name="edit_text"]');
-const elementsImageEdit = popupFormImages.querySelector('[name="edit_image"]');
+const elementsTextEdit = document.getElementById("image-name");
+const elementsImageEdit = document.getElementById("image-link");
 
 /* всплывающее окно для просмотра картинок */
 const popupImageContainer = page.querySelector(".popup_type_image");
@@ -45,13 +33,13 @@ const popupImageText = popupImageContainer.querySelector(".popup__description");
 
 const elements = page.querySelector(".elements");
 
-/* функция открытия попапа и блокировки страницы */
+/* функция блокировки страницы при открытии любого попапа */
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   page.classList.add("page_active");
 };
 
-/* функция закрытия попапа и разблокировки страницы */
+/* функция разблокировки страницы при закрытии любого попапа */
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   page.classList.remove("page_active");
@@ -59,18 +47,20 @@ const closePopup = (popup) => {
 
 /* функция внесения информации с попапа инфо в блок профиля */
 const handleProfileFormSubmit = (evt) => {
+  evt.preventDefault();
   closePopup(popupInformacion);
   profileName.textContent = profileNameEdit.value;
   profileDescription.textContent = profileDescriptionEdit.value;
-  evt.preventDefault();
 };
 
 /* открытие попапа для редактирования информации профиля */
 editButton.addEventListener("click", function (evt) {
+  evt.preventDefault();
   openPopup(popupInformacion);
   profileNameEdit.value = profileName.textContent;
   profileDescriptionEdit.value = profileDescription.textContent;
-  evt.preventDefault();
+  checkFormValidity(popupFormInfo);
+  setEventListeners(popupFormInfo);
 });
 
 /* закрытие любого попапа через крестик*/
@@ -82,31 +72,26 @@ closePopupButton.forEach((button) => {
 
 popupFormInfo.addEventListener("submit", handleProfileFormSubmit);
 
-/* убирает попап для редактирования профиля при клике на области кроме окна попапа */
-popupInformacion.addEventListener("click", function (evt) {
-  if (evt.target == evt.currentTarget) {
-    closePopup(popupInformacion);
-  }
-});
-
-/* убирает попап для добавления изображений при клике на области кроме окна попапа */
-popupImages.addEventListener("click", function (evt) {
-  if (evt.target == evt.currentTarget) {
-    closePopup(popupImages);
-  }
-});
-
-/* убирает попап для просмотра изображений при клике на области кроме окна попапа */
-popupImageContainer.addEventListener("click", function (evt) {
-  if (evt.target == evt.currentTarget) {
-    closePopup(popupImageContainer);
-  }
+/* закрытие любого попапа для при клике на области кроме окна попапа и по нажатию кнопки Esc */
+const popupWindow = Array.from(document.querySelectorAll(".popup"));
+popupWindow.forEach((popup) => {
+  popup.addEventListener("click", function (evt) {
+    if (evt.target == evt.currentTarget) {
+      closePopup(popup);
+    }
+  });
+  page.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 });
 
 /* открытие попапа для загрузки изображений */
 addImageButton.addEventListener("click", function (evt) {
-  openPopup(popupImages);
   evt.preventDefault();
+  openPopup(popupImages);
+  checkFormValidity(popupFormImages);
 });
 
 /* функция добавления лайков на картинки */
