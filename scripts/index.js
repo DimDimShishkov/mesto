@@ -37,18 +37,14 @@ const elementsSection = page.querySelector(".elements");
 const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   page.classList.add("page_active");
-  document.addEventListener("keydown", (evt) => {
-    setClosePopupListener(evt, popup);
-  })
+  document.addEventListener("keydown", setClosePopupListener)
 };
 
 /* функция разблокировки страницы при закрытии любого попапа */
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   page.classList.remove("page_active");
-  document.removeEventListener("keydown", (evt) => {
-    setClosePopupListener(evt, popup);
-  })
+  document.removeEventListener("keydown", setClosePopupListener)
 };
 
 /* функция внесения информации с попапа инфо в блок профиля */
@@ -88,12 +84,12 @@ popupWindow.forEach((popup) => {
 });
 
 /* закрытие любого попапа для при нажатии на кнопку Esc */
-const setClosePopupListener = (evt, popup) => {
+const setClosePopupListener = (evt) => {
+  const popupOpened = document.querySelector('.popup_opened')
     if (evt.key === "Escape") {
-      closePopup(popup);
+      closePopup(popupOpened);
     };
 }
-
 
 /* открытие попапа для загрузки изображений */
 addImageButton.addEventListener("click", function (evt) {
