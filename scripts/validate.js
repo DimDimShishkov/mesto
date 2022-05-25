@@ -8,72 +8,72 @@ const config = {
 };
 
 // функция показа ошибки при введении неправильных значений
-const showValidationError = ( errorElement, inputElement, errorMessage, inputErrorSelector, errorSelector) => {
+const showValidationError = ( formElement, inputElement, errorMessage, inputErrorSelector, errorSelector) => {
   inputElement.classList.add(inputErrorSelector);
+  const errorElement = formElement.querySelector(`.popup__input-error_type_${inputElement.id}`);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorSelector);
 };
 
 // функция скрытия ошибки при введении правильных значений
-const hideValidationError = ( errorElement, inputElement, inputErrorSelector, errorSelector) => {
+const hideValidationError = ( formElement, inputElement, inputErrorSelector, errorSelector) => {
   inputElement.classList.remove(inputErrorSelector);
+  const errorElement = formElement.querySelector(`.popup__input-error_type_${inputElement.id}`);
   errorElement.classList.remove(errorSelector);
   errorElement.textContent = "";
 };
 
 // функция проверки инпута на ошибку
-const checkInputValidity = (errorElement, inputElement, inputErrorSelector, errorSelector) => {
+const checkInputValidity = (formElement, inputElement, inputErrorSelector, errorSelector) => {
   if (!inputElement.validity.valid) {
-    showValidationError(errorElement, inputElement, inputElement.validationMessage, inputErrorSelector, errorSelector);
+    showValidationError(formElement, inputElement, inputElement.validationMessage, inputErrorSelector, errorSelector);
   } else {
-    hideValidationError(errorElement, inputElement, inputErrorSelector, errorSelector);
+    hideValidationError(formElement, inputElement, inputErrorSelector, errorSelector);
   }
 };
 
 // функция проверки формы на ошибку
-const checkFormValidity = (formElement, submitButton, disabledSelector) => {
+const checkFormValidity = (formElement, submitButtonSelector, inactiveButtonClass) => {
+//  const { submitButtonSelector, inactiveButtonClass } = validationSubmitButton;
+  const submitButton = formElement.querySelector(`.${submitButtonSelector}`);
   if (formElement.checkValidity()) {
     submitButton.disabled = false;
-    submitButton.classList.remove(disabledSelector);
+    submitButton.classList.remove(inactiveButtonClass);
   } else {
     submitButton.disabled = true;
-    submitButton.classList.add(disabledSelector);
+    submitButton.classList.add(inactiveButtonClass);
   }
 };
 
 // функция проверки вводимых данных в инпут
 const setEventListeners = (formElement, validationElement) => {
-  const { inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass} = validationElement;
-  const submitButton = formElement.querySelector(`.${submitButtonSelector}`);
+  const { inputSelector, inputErrorClass, errorClass, submitButtonSelector, inactiveButtonClass} = validationElement;
   const inputList = Array.from(formElement.querySelectorAll(`.${inputSelector}`));
   inputList.forEach((inputElement) => {
-    const errorElement = formElement.querySelector(`.popup__input-error_type_${inputElement.id}`);
     inputElement.addEventListener("input", function () {
-      checkInputValidity(errorElement, inputElement, inputErrorClass, errorClass);
-      checkFormValidity(formElement, submitButton, inactiveButtonClass);
+      checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
+      checkFormValidity(formElement, submitButtonSelector, inactiveButtonClass);
     });
   });
 };
 
 // функция запуски проверки
 const enableValidation = (validConfig) => {
-  const { formSelector, submitButtonSelector } = validConfig;
+  const { formSelector } = validConfig;
   const formList = Array.from(document.querySelectorAll(`.${formSelector}`));
   formList.forEach((formElement) => {
     setEventListeners(formElement, validConfig);
-    const submitButton = formElement.querySelector(`.${submitButtonSelector}`);
   });
 };
 
 enableValidation(config);
 
-// функция сброса ошибок и блокировки кнокпи отправить при открытии формы 
-const openedFormReset = (formName) => {
-  formName.reset()
-  formName.querySelector(".popup__submit-button").disabled = true;
-  formName.querySelector(".popup__submit-button").classList.add('popup__submit-button_type_disabled');
-  formName.querySelectorAll(".popup__input-error").forEach((input) => {
-    input.classList.remove('popup__input-error_active')});
-  formName.querySelectorAll(".popup__input").forEach((input) => {
-    input.classList.remove('popup__input_type_error')});
+// функция сброса ошибок и блокировки кнопки "отправить" при открытии формы 
+const openedFormCheck = (formName, configOpenedForm) => {
+  const { inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass } = configOpenedForm;
+  checkFormValidity(formName, submitButtonSelector, inactiveButtonClass);
+  const inputList = Array.from(formName.querySelectorAll(`.${inputSelector}`));
+  inputList.forEach((inputElement) => {
+      hideValidationError( formName, inputElement, inputErrorClass, errorClass) 
+    })
 }

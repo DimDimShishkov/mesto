@@ -59,9 +59,9 @@ const handleProfileFormSubmit = (evt) => {
 editButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupInformacion);
-  openedFormReset(popupFormInfo);
   profileNameEdit.value = profileName.textContent;
   profileDescriptionEdit.value = profileDescription.textContent;
+  openedFormCheck(popupFormInfo, config);
 });
 
 /* закрытие любого попапа через крестик*/
@@ -76,7 +76,7 @@ popupFormInfo.addEventListener("submit", handleProfileFormSubmit);
 /* закрытие любого попапа для при клике на области кроме окна попапа */
 const popupWindow = Array.from(document.querySelectorAll(".popup"));
 popupWindow.forEach((popup) => {
-  popup.addEventListener("click", function (evt) {
+  popup.addEventListener("mousedown", function (evt) {
     if (evt.target == evt.currentTarget) {
       closePopup(popup);
     }
@@ -95,7 +95,7 @@ const setClosePopupListener = (evt) => {
 addImageButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupImages);
-  openedFormReset(popupFormImages);  
+  openedFormCheck(popupFormImages, config);  
 });
 
 /* функция добавления лайков на картинки */
