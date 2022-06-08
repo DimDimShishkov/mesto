@@ -33,13 +33,8 @@
       <div class="popup__container popup__container_type_info">
         <h2 class="popup__title">Редактировать профиль</h2>
 
-        <form
-          novalidate
-          class="popup__form popup__form_type_info"
-          name="info">
-
+        <form novalidate class="popup__form popup__form_type_info" name="info">
           <fieldset class="popup__fieldset">
-
             <label class="popup__label popup__label_value_name">
               <input
                 required
@@ -55,22 +50,21 @@
               ></span>
             </label>
 
-          <label class="popup__label popup__label_value_description">
-            <input
-              required
-              minlength="2"
-              maxlength="200"
-              type="text"
-              class="popup__input"
-              id="edit-description"
-              placeholder="Введите описание профиля"
-            />
-            <span
-              class="popup__input-error popup__input-error_type_edit-description"
-            ></span>
-          </label>
-
-        </fieldset>
+            <label class="popup__label popup__label_value_description">
+              <input
+                required
+                minlength="2"
+                maxlength="200"
+                type="text"
+                class="popup__input"
+                id="edit-description"
+                placeholder="Введите описание профиля"
+              />
+              <span
+                class="popup__input-error popup__input-error_type_edit-description"
+              ></span>
+            </label>
+          </fieldset>
           <button
             type="submit"
             class="popup__submit-button popup__submit-button_type_info"
@@ -91,39 +85,40 @@
           class="popup__form popup__form_type_images"
           name="images"
         >
-        <fieldset class="popup__fieldset">
-          <label class="popup__label popup__label_value_name">
-            <input
-              required
-              minlength="2"
-              maxlength="30"
-              type="text"
-              class="popup__input"
-              id="image-name"
-              placeholder="Название"
-            />
-            <span
-              class="popup__input-error popup__input-error_type_image-name"
-            ></span>
-          </label>
+          <fieldset class="popup__fieldset">
+            <label class="popup__label popup__label_value_name">
+              <input
+                required
+                minlength="2"
+                maxlength="30"
+                type="text"
+                class="popup__input"
+                id="image-name"
+                placeholder="Название"
+              />
+              <span
+                class="popup__input-error popup__input-error_type_image-name"
+              ></span>
+            </label>
 
-          <label class="popup__label popup__label_value_description">
-            <input
-              required
-              type="url"
-              class="popup__input"
-              id="image-link"
-              placeholder="Ссылка на картинку"
-            />
-            <span
-              class="popup__input-error popup__input-error_type_image-link"
-            ></span>
-          </label>
-        </fieldset>
+            <label class="popup__label popup__label_value_description">
+              <input
+                required
+                type="url"
+                class="popup__input"
+                id="image-link"
+                placeholder="Ссылка на картинку"
+              />
+              <span
+                class="popup__input-error popup__input-error_type_image-link"
+              ></span>
+            </label>
+          </fieldset>
 
           <button
             type="submit"
-            class="popup__submit-button popup__submit-button_type_images">
+            class="popup__submit-button popup__submit-button_type_images"
+          >
             Создать
           </button>
         </form>
@@ -140,7 +135,7 @@
       </div>
     </div>
 
-    <template id="image-template">
+    <template class="image-template">
       <article class="element">
         <img src=" " alt="" class="element__image" />
         <div class="element__title">
@@ -151,7 +146,6 @@
       </article>
     </template>
 
-    <script defer src="./scripts/index.js"></script>
-    <script defer src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

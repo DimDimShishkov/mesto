@@ -1,50 +1,43 @@
+import { Card } from "./Card.js";
+import { config, FormValidator } from "./FormValidator.js";
+
 const page = document.querySelector(".page");
 
+// определение постоянных
 const profile = page.querySelector(".profile");
 const profileInfo = profile.querySelector(".profile__info");
 const editButton = profileInfo.querySelector(".profile__edit-button");
 const addImageButton = profile.querySelector(".profile__add-button");
 const profileName = profileInfo.querySelector(".profile__name");
 const profileDescription = profileInfo.querySelector(".profile__description");
-const addButton = profile.querySelector(".profile__add-button");
 
-/* всплывающее окно для изменения имени профиля */
+// всплывающее окно для изменения имени профиля
 const popupInformacion = page.querySelector(".popup_type_info");
 const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
-const submitButtonInfo = popupFormInfo.querySelector(
-  ".popup__submit-button_type_info"
-);
 const profileNameEdit = document.getElementById("edit-name");
 const profileDescriptionEdit = document.getElementById("edit-description");
 
-/* всплывающее окно для добавления картинок */
+// всплывающее окно для добавления картинок
 const popupImages = page.querySelector(".popup_type_images");
 const popupFormImages = popupImages.querySelector(".popup__form_type_images");
-const submitButtonImages = popupFormImages.querySelector(
-  ".popup__submit-button_type_images"
-);
 const elementsTextEdit = document.getElementById("image-name");
 const elementsImageEdit = document.getElementById("image-link");
 
-/* всплывающее окно для просмотра картинок */
-const popupImageContainer = page.querySelector(".popup_type_image");
-const popupImage = popupImageContainer.querySelector(".popup__image");
-const popupImageText = popupImageContainer.querySelector(".popup__description");
-
+// чтобы не искать несколько раз секцию с картинками
 const elementsSection = page.querySelector(".elements");
 
 /* функция блокировки страницы при открытии любого попапа */
-const openPopup = (popup) => {
+export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   page.classList.add("page_active");
-  document.addEventListener("keydown", setClosePopupListener)
+  document.addEventListener("keydown", setClosePopupListener);
 };
 
 /* функция разблокировки страницы при закрытии любого попапа */
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   page.classList.remove("page_active");
-  document.removeEventListener("keydown", setClosePopupListener)
+  document.removeEventListener("keydown", setClosePopupListener);
 };
 
 /* функция внесения информации с попапа инфо в блок профиля */
@@ -61,7 +54,8 @@ editButton.addEventListener("click", function (evt) {
   openPopup(popupInformacion);
   profileNameEdit.value = profileName.textContent;
   profileDescriptionEdit.value = profileDescription.textContent;
-  openedFormCheck(popupFormInfo, config);
+  const form = new FormValidator(config, popupFormInfo);
+  form.enableValidation();
 });
 
 /* закрытие любого попапа через крестик*/
@@ -85,67 +79,29 @@ popupWindow.forEach((popup) => {
 
 /* закрытие любого попапа для при нажатии на кнопку Esc */
 const setClosePopupListener = (evt) => {
-  const popupOpened = document.querySelector('.popup_opened')
-    if (evt.key === "Escape") {
-      closePopup(popupOpened);
-    };
-}
+  const popupOpened = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") {
+    closePopup(popupOpened);
+  }
+};
 
 /* открытие попапа для загрузки изображений */
 addImageButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupImages);
-  openedFormCheck(popupFormImages, config);  
+  const form = new FormValidator(config, popupFormImages);
+  form.enableValidation();
 });
-
-/* функция добавления лайков на картинки */
-const toggleLike = (evt) => {
-  evt.target.classList.toggle("element__like_active");
-};
-
-/* функция удаления картинки нажатием на корзину */
-const deleteImage = (evt) => {
-  evt.target.closest(".element").remove();
-};
-
-const imageTemplate = document.querySelector("#image-template").content;
-const element = imageTemplate.querySelector(".element");
-
-/* открытие попапа для просмотра изображений */
-const handleCardClick = (imageValue, titleValue) => {
-  openPopup(popupImageContainer);
-  popupImageText.textContent = titleValue;
-  popupImage.src = imageValue;
-  popupImage.alt = titleValue;
-};
-
-/* функция создания новой картинки, установка лайка и удаления */
-const createCard = (imageValue, titleValue) => {
-  const elementClone = element.cloneNode(true);
-  const elementImage = elementClone.querySelector(".element__image");
-  const elementText = elementClone.querySelector(".element__text");
-  elementImage.src = imageValue;
-  elementText.textContent = titleValue;
-  elementImage.alt = titleValue;
-  const likeImageButton = elementClone.querySelector(".element__like");
-  likeImageButton.addEventListener("click", toggleLike);
-  const deleteImageButton = elementClone.querySelector(".element__remove");
-  deleteImageButton.addEventListener("click", deleteImage);
-  elementImage.addEventListener("click", () =>
-    handleCardClick(imageValue, titleValue)
-  );
-  return elementClone;
-};
-
-/* функция добавления новой картинки */
-const addImage = (imageValue, titleValue) => {
-  const cardElement = createCard(imageValue, titleValue);
-  elementsSection.prepend(cardElement);
-};
 
 /* функция внесения информации с попапа картинок */
 const handleImagesFormSubmit = (evt) => {
-  addImage(elementsImageEdit.value, elementsTextEdit.value);
+  const card = new Card(
+    elementsTextEdit.value,
+    elementsImageEdit.value,
+    ".image-template"
+  );
+  const cardElement = card.generateCard();
+  elementsSection.prepend(cardElement);
   evt.preventDefault();
   closePopup(popupImages);
   evt.target.reset();
@@ -181,8 +137,14 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach(function (element) {
-  addImage(element.link, element.name);
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link, ".image-template", openPopup);
+  const cardElement = card.generateCard();
+  elementsSection.prepend(cardElement);
 });
 
-
+const formList = Array.from(document.querySelectorAll(`.popup__form`));
+formList.forEach((formElement) => {
+  const form = new FormValidator(config, formElement);
+  form.enableValidation();
+});
