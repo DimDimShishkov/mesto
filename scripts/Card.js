@@ -1,12 +1,9 @@
-import { openPopup } from "./index.js";
-
-const popupImageContainer = document.querySelector(".popup_type_image");
-
 export class Card {
-  constructor(itemName, itemLink, cardSelector) {
+  constructor(itemName, itemLink, cardSelector, handleCardClick) {
     this._image = itemLink;
     this._title = itemName;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -18,49 +15,38 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector(".element__image");
+    this._cardText = this._element.querySelector(".element__text");
+    this._cardLike = this._element.querySelector(".element__like");
+    this._cardDelete = this._element.querySelector(".element__remove");
+
+    this._cardImage.src = `${this._image}`;
+    this._cardImage.alt = this._title;
+    this._cardText.textContent = this._title;
     this._setEventListeners();
-    this._element.querySelector(".element__image").src = `${this._image}`;
-    this._element.querySelector(".element__image").alt = this._title;
-    this._element.querySelector(".element__text").textContent = this._title;
 
     return this._element;
   }
 
   _toggleLike() {
-    this._element
-      .querySelector(".element__like")
-      .classList.toggle("element__like_active");
+    this._cardLike.classList.toggle("element__like_active");
   }
 
   _deleteImage() {
     this._element.remove();
   }
 
-  _handleCardClick() {
-    openPopup(popupImageContainer);
-    popupImageContainer.querySelector(".popup__description").textContent =
-      this._title;
-    const popupImage = popupImageContainer.querySelector(".popup__image");
-    popupImage.src = this._image;
-    popupImage.alt = this._title;
-  }
-
   _setEventListeners() {
-    this._element
-      .querySelector(".element__like")
-      .addEventListener("click", () => {
-        this._toggleLike();
-      });
-    this._element
-      .querySelector(".element__remove")
-      .addEventListener("click", () => {
-        this._deleteImage();
-      });
+    this._cardLike.addEventListener("click", () => {
+      this._toggleLike();
+    });
 
-    this._element
-      .querySelector(".element__image")
-      .addEventListener("click", () => {
-        this._handleCardClick();
-      });
+    this._cardDelete.addEventListener("click", () => {
+      this._deleteImage();
+    });
+
+    this._cardImage.addEventListener("click", () => {
+      this._handleCardClick(this._image, this._title);
+    });
   }
 }

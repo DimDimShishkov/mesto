@@ -16,6 +16,12 @@ export class FormValidator {
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
     this._form = form;
+    this._submitButton = this._form.querySelector(
+      `.${this._submitButtonSelector}`
+    );
+    this._inputsList = Array.from(
+      this._form.querySelectorAll(`.${this._inputSelector}`)
+    );
   }
 
   _hideValidationError(inputElement) {
@@ -36,7 +42,7 @@ export class FormValidator {
     errorElement.classList.add(this._errorClass);
   }
 
-  _checkInputValidity(inputElement) {
+  _toggleButtonState(inputElement) {
     if (!inputElement.validity.valid) {
       this._showValidationError(inputElement);
     } else {
@@ -45,30 +51,31 @@ export class FormValidator {
   }
 
   _checkFormValidity() {
-    const submitButton = this._form.querySelector(
-      `.${this._submitButtonSelector}`
-    );
     if (this._form.checkValidity()) {
-      submitButton.disabled = false;
-      submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.disabled = false;
+      this._submitButton.classList.remove(this._inactiveButtonClass);
     } else {
-      submitButton.disabled = true;
-      submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
+      this._submitButton.classList.add(this._inactiveButtonClass);
     }
   }
 
   _setEventListeners(inputElement) {
     inputElement.addEventListener("input", () => {
-      this._checkInputValidity(inputElement);
+      this._toggleButtonState(inputElement);
       this._checkFormValidity();
     });
   }
 
+  resetValidation() {
+    this._checkFormValidity()
+    this._inputsList.forEach((inputElement) => {
+      this._hideValidationError(inputElement);
+    });
+  }
+
   enableValidation() {
-    const inputList = Array.from(
-      this._form.querySelectorAll(`.${this._inputSelector}`)
-    );
-    inputList.forEach((inputElement) => {
+    this._inputsList.forEach((inputElement) => {
       this._setEventListeners(inputElement);
       this._hideValidationError(inputElement);
       this._checkFormValidity(inputElement);

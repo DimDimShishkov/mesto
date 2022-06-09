@@ -26,18 +26,25 @@ const elementsImageEdit = document.getElementById("image-link");
 // чтобы не искать несколько раз секцию с картинками
 const elementsSection = page.querySelector(".elements");
 
+// всплывающее окно для просмотра картинок
+const popupImageContainer = document.querySelector(".popup_type_image");
+const popupImageDescription = popupImageContainer.querySelector(
+  ".popup__description"
+);
+const popupImage = popupImageContainer.querySelector(".popup__image");
+
 /* функция блокировки страницы при открытии любого попапа */
 export const openPopup = (popup) => {
   popup.classList.add("popup_opened");
   page.classList.add("page_active");
-  document.addEventListener("keydown", setClosePopupListener);
+  document.addEventListener("keydown", handleEscape);
 };
 
 /* функция разблокировки страницы при закрытии любого попапа */
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   page.classList.remove("page_active");
-  document.removeEventListener("keydown", setClosePopupListener);
+  document.removeEventListener("keydown", handleEscape);
 };
 
 /* функция внесения информации с попапа инфо в блок профиля */
@@ -48,39 +55,35 @@ const handleProfileFormSubmit = (evt) => {
   profileDescription.textContent = profileDescriptionEdit.value;
 };
 
+popupFormInfo.addEventListener("submit", handleProfileFormSubmit);
+
 /* открытие попапа для редактирования информации профиля */
 editButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupInformacion);
   profileNameEdit.value = profileName.textContent;
   profileDescriptionEdit.value = profileDescription.textContent;
-  const form = new FormValidator(config, popupFormInfo);
-  form.enableValidation();
+  formValidators['info'].resetValidation()
+  
 });
 
-/* закрытие любого попапа через крестик*/
-const closePopupButton = document.querySelectorAll(".popup__exit-button");
-closePopupButton.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-});
-
-popupFormInfo.addEventListener("submit", handleProfileFormSubmit);
-
-/* закрытие любого попапа для при клике на области кроме окна попапа */
-const popupWindow = Array.from(document.querySelectorAll(".popup"));
-popupWindow.forEach((popup) => {
+/* закрытие любого попапа при клике на области кроме окна попапа и через крестик */
+const popups = Array.from(document.querySelectorAll(".popup"));
+popups.forEach((popup) => {
   popup.addEventListener("mousedown", function (evt) {
-    if (evt.target == evt.currentTarget) {
+    if (evt.target.classList.contains('popup_opened')) {
       closePopup(popup);
+    }
+    if (evt.target.classList.contains('popup__exit-button')) {
+      closePopup(popup)
     }
   });
 });
 
 /* закрытие любого попапа для при нажатии на кнопку Esc */
-const setClosePopupListener = (evt) => {
-  const popupOpened = document.querySelector(".popup_opened");
+const handleEscape = (evt) => {
   if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
     closePopup(popupOpened);
   }
 };
@@ -89,18 +92,33 @@ const setClosePopupListener = (evt) => {
 addImageButton.addEventListener("click", function (evt) {
   evt.preventDefault();
   openPopup(popupImages);
-  const form = new FormValidator(config, popupFormImages);
-  form.enableValidation();
+  formValidators['images'].resetValidation()
+
 });
+
+/* открытие попапа для просмотра изображений */
+const handleCardClick = (imageValue, titleValue) => {
+  popupImageDescription.textContent = titleValue;
+  popupImage.src = imageValue;
+  popupImage.alt = titleValue;
+  openPopup(popupImageContainer);
+};
+
+/* функция создания новой картинки, установка лайка и удаления */
+const createCard = (itemName, itemLink) => {
+  const card = new Card(
+    itemName,
+    itemLink,
+    ".image-template",
+    handleCardClick
+  );
+  const cardElement = card.generateCard();
+  return cardElement
+}
 
 /* функция внесения информации с попапа картинок */
 const handleImagesFormSubmit = (evt) => {
-  const card = new Card(
-    elementsTextEdit.value,
-    elementsImageEdit.value,
-    ".image-template"
-  );
-  const cardElement = card.generateCard();
+  const cardElement = createCard(elementsTextEdit.value, elementsImageEdit.value)
   elementsSection.prepend(cardElement);
   evt.preventDefault();
   closePopup(popupImages);
@@ -138,13 +156,22 @@ const initialCards = [
 ];
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, ".image-template", openPopup);
-  const cardElement = card.generateCard();
+  const cardElement = createCard(item.name, item.link)
   elementsSection.prepend(cardElement);
 });
 
-const formList = Array.from(document.querySelectorAll(`.popup__form`));
-formList.forEach((formElement) => {
-  const form = new FormValidator(config, formElement);
-  form.enableValidation();
-});
+const formValidators = {}
+
+const enableValidation = (config) => {
+  const formsList = Array.from(document.querySelectorAll(`.${config.formSelector}`))
+  formsList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name')
+
+     formValidators[formName] = validator;
+    validator.enableValidation();
+   });
+ };
+ 
+ enableValidation(config);
+
