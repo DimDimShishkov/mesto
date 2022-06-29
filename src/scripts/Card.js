@@ -1,8 +1,8 @@
 export class Card {
-  constructor(itemName, itemLink, cardSelector, handleCardClick) {
-    this._image = itemLink;
-    this._title = itemName;
-    this._cardSelector = cardSelector;
+  constructor({item, handleCardClick}, templateSelector) {
+    this._link = item.link;
+    this._title = item.name;
+    this._cardSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
 
@@ -20,7 +20,7 @@ export class Card {
     this._cardLike = this._element.querySelector(".element__like");
     this._cardDelete = this._element.querySelector(".element__remove");
 
-    this._cardImage.src = `${this._image}`;
+    this._cardImage.src = `${this._link}`;
     this._cardImage.alt = this._title;
     this._cardText.textContent = this._title;
     this._setEventListeners();
@@ -46,7 +46,7 @@ export class Card {
     });
 
     this._cardImage.addEventListener("click", () => {
-      this._handleCardClick(this._image, this._title);
+      this._handleCardClick(this._link, this._title);
     });
   }
 }
