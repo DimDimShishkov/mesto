@@ -14,7 +14,7 @@
       <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar" />
       <div class="profile__info">
         <div class="profile__main">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
         </div>
         <p class="profile__description">Исследователь океана</p>
@@ -32,7 +32,12 @@
       <div class="popup__container popup__container_type_info">
         <h2 class="popup__title">Редактировать профиль</h2>
 
-        <form autocomplete="off" novalidate class="popup__form popup__form_type_info" name="info">
+        <form
+          autocomplete="off"
+          novalidate
+          class="popup__form popup__form_type_info"
+          name="info"
+        >
           <fieldset class="popup__fieldset">
             <label class="popup__label popup__label_value_name">
               <input
@@ -41,11 +46,11 @@
                 maxlength="40"
                 type="text"
                 class="popup__input"
-                id="edit-name"
+                id="edit-title"
                 placeholder="Введите имя профиля"
               />
               <span
-                class="popup__input-error popup__input-error_type_edit-name"
+                class="popup__input-error popup__input-error_type_edit-title"
               ></span>
             </label>
 
@@ -78,8 +83,8 @@
     <div class="popup popup_type_images">
       <div class="popup__container popup__container_type_images">
         <h2 class="popup__title">Новое место</h2>
-
-        <form autocomplete="off"
+        <form
+          autocomplete="off"
           novalidate
           class="popup__form popup__form_type_images"
           name="images"
@@ -92,11 +97,11 @@
                 maxlength="30"
                 type="text"
                 class="popup__input"
-                id="edit-title"
+                id="edit-name"
                 placeholder="Название"
               />
               <span
-                class="popup__input-error popup__input-error_type_edit-title"
+                class="popup__input-error popup__input-error_type_edit-name"
               ></span>
             </label>
 

@@ -3,15 +3,15 @@ export const page = document.querySelector(".page");
 // определение постоянных
 export const profile = page.querySelector(".profile");
 export const profileInfo = profile.querySelector(".profile__info");
-export const editButton = profileInfo.querySelector(".profile__edit-button");
-export const addImageButton = profile.querySelector(".profile__add-button");
-export const profileName = profileInfo.querySelector(".profile__name");
-export const profileDescription = profileInfo.querySelector(".profile__description");
+export const editButton = document.querySelector(".profile__edit-button");
+export const addImageButton = document.querySelector(".profile__add-button");
+export const profileName = document.querySelector(".profile__title");
+export const profileDescription = document.querySelector(".profile__description");
 
 // всплывающее окно для изменения имени профиля
 export const popupInformacion = page.querySelector(".popup_type_info");
-const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
-export const profileNameEdit = document.getElementById("edit-name");
+export const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
+export const profileNameEdit = document.getElementById("edit-title");
 export const profileDescriptionEdit = document.getElementById("edit-description");
 
 // всплывающее окно для добавления картинок

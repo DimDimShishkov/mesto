@@ -12,13 +12,8 @@ export class Section {
     this._container.prepend(element);
   }
 
-  clear() {
-    this._container.innerHTML = '';
-  }
-
   /* публичный метод, который отвечает за отрисовку всех элементов */
   renderItems() {
-    this.clear();
     this._renderedItems.forEach(item => {
       this._renderer(item);
     });

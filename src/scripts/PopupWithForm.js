@@ -2,14 +2,14 @@ import { Popup } from "./Popup";
 
 export class PopupWithForm extends Popup {
   /*     Кроме селектора попапа принимает в конструктор колбэк сабмита формы. */
-  constructor(popupSelector, submitHandler, getterCallBack = null) {
+  constructor(popupSelector, {submitHandler}) {
     super(popupSelector);
     this._submitHandler = submitHandler;
     this._popupForm = this._popup.querySelector(".popup__form");
     this._inputsList = Array.from(
-      this._popup.querySelectorAll(".popup__input")
+      this._popupForm.querySelectorAll(".popup__input")
     );
-    this._getterCallBack = getterCallBack;
+    /* this._getterCallBack = getterCallBack; */
   }
 
   /*   метод, который собирает данные всех полей формы */
@@ -17,34 +17,26 @@ export class PopupWithForm extends Popup {
     const values = {};
     this._inputsList.forEach((input) => {
       values[input.id.slice(5)] = input.value;
-      console.log(values)
     });
     return values;
   };
 
-  _setInputValues = (values) => {
+  _setInputValues (values) {
     this._inputsList.forEach((input) => {
       input.value = values[input.id.slice(5)];
     });
   };
 
-  /* Метод setEventListeners с добавленным обработчиком сабмита формы*/
-  setEventListeners() {
-    super.setEventListeners();
-
-    this._popupForm.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      this._submitHandler(this._getInputValues());
-    });
+  _submitEvtHandler (evt) {
+    evt.preventDefault();
+    this._submitHandler(this._getInputValues());
+    this.close();
   }
 
-  open() {
-    if (this._getterCallBack) {
-      this._setInputValues(this._getterCallBack);
-    } else {
-      this._popupForm.reset();
-    }
-    super.open();
+  /* Метод setEventListeners с добавленным обработчиком сабмита формы*/
+  setEventListeners() {
+    this._popupForm.addEventListener("submit", this._submitEvtHandler.bind(this));
+    super.setEventListeners();
   }
 
   /* публичный метод закрытия попапа */
