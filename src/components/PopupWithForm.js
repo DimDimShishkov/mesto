@@ -9,22 +9,15 @@ export class PopupWithForm extends Popup {
     this._inputsList = Array.from(
       this._popupForm.querySelectorAll(".popup__input")
     );
-    /* this._getterCallBack = getterCallBack; */
   }
 
   /*   метод, который собирает данные всех полей формы */
   _getInputValues = () => {
     const values = {};
     this._inputsList.forEach((input) => {
-      values[input.id.slice(5)] = input.value;
+      values[input.id] = input.value;
     });
     return values;
-  };
-
-  _setInputValues (values) {
-    this._inputsList.forEach((input) => {
-      input.value = values[input.id.slice(5)];
-    });
   };
 
   _submitEvtHandler (evt) {
@@ -59,25 +52,3 @@ export class PopupWithForm extends Popup {
 Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться. +
 Для каждого попапа создавайте свой экземпляр класса PopupWithForm. 
 */
-
-/* функция внесения информации с попапа инфо в блок профиля */
-/* const handleProfileFormSubmit = (evt) => {
-  evt.preventDefault();
-  closePopup(popupInformacion);
-  profileName.textContent = profileNameEdit.value;
-  profileDescription.textContent = profileDescriptionEdit.value;
-};
-
-popupFormInfo.addEventListener("submit", handleProfileFormSubmit); */
-
-/* функция внесения информации с попапа картинок */
-/* const handleImagesFormSubmit = (evt) => {
-  const cardElement = createCard(elementsTextEdit.value, elementsImageEdit.value)
-  elementsSection.prepend(cardElement);
-  evt.preventDefault();
-  closePopup(popupImages);
-  evt.target.reset();
-};
-
-popupFormImages.addEventListener("submit", handleImagesFormSubmit);
- */

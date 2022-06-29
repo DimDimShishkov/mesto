@@ -1,5 +1,3 @@
-
-
 export class UserInfo {
   constructor({ profileName, profileDescription }) {
     this._profileName = profileName;
@@ -28,28 +26,3 @@ export class UserInfo {
 Содержит публичный метод setUserInfo, который принимает новые данные пользователя и добавляет их на страницу. +
 */
 
-/*
-const profileName = profileInfo.querySelector(".profile__name");
-const profileDescription = profileInfo.querySelector(".profile__description");
-
-функция внесения информации с попапа инфо в блок профиля
-const handleProfileFormSubmit = (evt) => {
-  evt.preventDefault();
-  closePopup(popupInformacion);
-  profileName.textContent = profileNameEdit.value;
-  profileDescription.textContent = profileDescriptionEdit.value;
-}; 
-
-const profileNameEdit = document.getElementById("edit-name");
-const profileDescriptionEdit = document.getElementById("edit-description");
-
- открытие попапа для редактирования информации профиля
-editButton.addEventListener("click", function (evt) {
-  evt.preventDefault();
-  openPopup(popupInformacion);
-  profileNameEdit.value = profileName.textContent;
-  profileDescriptionEdit.value = profileDescription.textContent;
-  formValidators['info'].resetValidation()
-  
-});
-*/

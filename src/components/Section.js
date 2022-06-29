@@ -1,5 +1,3 @@
-/* import { page } from "./constants"; */
-
 export class Section {
   constructor({items, renderer }, containerSelector) {
     this._renderedItems = items; /* массив данных, которые нужно добавить на страницу при инициализации класса */

@@ -1,5 +1,5 @@
-import { Card } from "./Card.js";
-import { config, FormValidator } from "./FormValidator.js";
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
 import {
   initialCards,
   editButton,
@@ -8,12 +8,13 @@ import {
   profileDescription,
   profileNameEdit,
   profileDescriptionEdit,
-} from "./constants";
-import { UserInfo } from "./UserInfo.js";
-import { PopupWithForm } from "./PopupWithForm.js";
-import "../pages/index.css";
-import PopupWithImage from "./PopupWithImage.js";
-import { Section } from "./Section.js";
+  config
+} from "../utils/constants.js";
+import { UserInfo } from "../components/UserInfo.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import "./index.css";
+import PopupWithImage from "../components/PopupWithImage.js";
+import { Section } from "../components/Section.js";
 
 // создание профиля
 const userInfo = new UserInfo({ profileName, profileDescription });
@@ -30,7 +31,6 @@ popupFormInfo.setEventListeners();
 
 /* открытие попапа с вводом инфо в блок профиля */
 editButton.addEventListener("click", () => {
-  const userInfo = new UserInfo({ profileName, profileDescription });
   const userData = userInfo.getUserInfo();
   profileNameEdit.value = userData.title;
   profileDescriptionEdit.value = userData.description;
@@ -38,11 +38,16 @@ editButton.addEventListener("click", () => {
   formValidators["info"].resetValidation();
 });
 
-/* создание попапа для создания новой картинки */
+// функция создания новой карточки
+const handleCreateCard = (item) => {
+  const card = new Card({ item, handleCardClick }, ".image-template");
+  return cardList.addItem(card.generateCard());
+}
+
+/* создание попапа для загрузки новой картинки */
 const popupFormImage = new PopupWithForm(".popup_type_images", {
   submitHandler: (item) => {
-    const userCard = new Card({ item, handleCardClick }, ".image-template");
-    cardList.addItem(userCard.generateCard());
+    handleCreateCard(item)
   },
 });
 
@@ -69,8 +74,7 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card({ item, handleCardClick }, ".image-template");
-      cardList.addItem(card.generateCard());
+      handleCreateCard(item)
     },
   },
   ".elements"

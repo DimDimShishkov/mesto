@@ -1,9 +1,7 @@
-import { page } from "./constants";
-
 export class Popup {
   constructor(popupSelector) {
-    this._popup = page.querySelector(popupSelector);
-    this._popupSelector = popupSelector;
+    this._page = document.querySelector('.page')
+    this._popup = this._page.querySelector(popupSelector);
   }
 
   /* приватный метод с логикой закрытия попапа клавишей Esc */
@@ -27,20 +25,16 @@ export class Popup {
 
   /* публичный метод открытия попапа */
   open() {
-    document.addEventListener("keydown", (evt) => {
-      this._handleEscClose(evt);
-    });
+    document.addEventListener("keydown", this._handleEscClose);
     this._popup.classList.add("popup_opened");
-    page.classList.add("page_active");
+    this._page.classList.add("page_active");
   }
 
   /* публичный метод закрытия попапа */
   close() {
     this._popup.classList.remove("popup_opened");
-    page.classList.remove("page_active");
-    document.removeEventListener("keydown", () => {
-      this._handleEscClose();
-    });
+    this._page.classList.remove("page_active");
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 }
 

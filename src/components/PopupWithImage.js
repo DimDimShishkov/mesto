@@ -1,5 +1,4 @@
 import { Popup } from "./Popup";
-import { page } from "./constants";
 
 export default class PopupWithImage extends Popup {
   constructor(popupSelector) {

@@ -11,14 +11,14 @@ export const profileDescription = document.querySelector(".profile__description"
 // всплывающее окно для изменения имени профиля
 export const popupInformacion = page.querySelector(".popup_type_info");
 export const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
-export const profileNameEdit = document.getElementById("edit-title");
-export const profileDescriptionEdit = document.getElementById("edit-description");
+export const profileNameEdit = document.getElementById("title");
+export const profileDescriptionEdit = document.getElementById("description");
 
 // всплывающее окно для добавления картинок
 export const popupImages = page.querySelector(".popup_type_images");
 export const popupFormImages = popupImages.querySelector(".popup__form_type_images");
-export const elementsTextEdit = document.getElementById("image-name");
-export const elementsImageEdit = document.getElementById("image-link");
+export const elementsTextEdit = document.getElementById("name");
+export const elementsImageEdit = document.getElementById("link");
 
 // чтобы не искать несколько раз секцию с картинками
 export const elementsSection = page.querySelector(".elements");
@@ -57,3 +57,12 @@ export const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
+export const config = {
+  formSelector: "popup__form",
+  inputSelector: "popup__input",
+  submitButtonSelector: "popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_type_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
