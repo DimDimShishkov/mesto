@@ -8,7 +8,7 @@ import {
   profileDescription,
   profileNameEdit,
   profileDescriptionEdit,
-  config
+  config,
 } from "../utils/constants.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
@@ -41,13 +41,13 @@ editButton.addEventListener("click", () => {
 // функция создания новой карточки
 const handleCreateCard = (item) => {
   const card = new Card({ item, handleCardClick }, ".image-template");
-  return cardList.addItem(card.generateCard());
-}
+  return card.generateCard();
+};
 
 /* создание попапа для загрузки новой картинки */
 const popupFormImage = new PopupWithForm(".popup_type_images", {
   submitHandler: (item) => {
-    handleCreateCard(item)
+    cardList.addItemPrepend(handleCreateCard(item));
   },
 });
 
@@ -74,7 +74,7 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      handleCreateCard(item)
+      cardList.addItemPrepend(handleCreateCard(item));
     },
   },
   ".elements"

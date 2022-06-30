@@ -1,18 +1,27 @@
 export class Section {
-  constructor({items, renderer }, containerSelector) {
-    this._renderedItems = items; /* массив данных, которые нужно добавить на страницу при инициализации класса */
-    this._renderer = renderer; /* функция, которая отвечает за создание и отрисовку данных на странице */
+  constructor({ items, renderer }, containerSelector) {
+    this._renderedItems =
+      items; /* массив данных, которые нужно добавить на страницу при инициализации класса */
+    this._renderer =
+      renderer; /* функция, которая отвечает за создание и отрисовку данных на странице */
     this._container = document.querySelector(containerSelector);
   }
-  
-/*   публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер */
-  addItem(element) {
+
+  /*   публичный метод addItem, 
+  который принимает DOM-элемент и добавляет его в контейнер в начало */
+  addItemPrepend(element) {
     this._container.prepend(element);
+  }
+
+  /*   публичный метод addItem, 
+  который принимает DOM-элемент и добавляет его в контейнер в конец */
+  addItemAppend(element) {
+    this._container.apppend(element);
   }
 
   /* публичный метод, который отвечает за отрисовку всех элементов */
   renderItems() {
-    this._renderedItems.forEach(item => {
+    this._renderedItems.forEach((item) => {
       this._renderer(item);
     });
   }

@@ -2,7 +2,7 @@ import { Popup } from "./Popup";
 
 export class PopupWithForm extends Popup {
   /*     Кроме селектора попапа принимает в конструктор колбэк сабмита формы. */
-  constructor(popupSelector, {submitHandler}) {
+  constructor(popupSelector, { submitHandler }) {
     super(popupSelector);
     this._submitHandler = submitHandler;
     this._popupForm = this._popup.querySelector(".popup__form");
@@ -20,7 +20,7 @@ export class PopupWithForm extends Popup {
     return values;
   };
 
-  _submitEvtHandler (evt) {
+  _submitEvtHandler(evt) {
     evt.preventDefault();
     this._submitHandler(this._getInputValues());
     this.close();
@@ -28,7 +28,10 @@ export class PopupWithForm extends Popup {
 
   /* Метод setEventListeners с добавленным обработчиком сабмита формы*/
   setEventListeners() {
-    this._popupForm.addEventListener("submit", this._submitEvtHandler.bind(this));
+    this._popupForm.addEventListener(
+      "submit",
+      this._submitEvtHandler.bind(this)
+    );
     super.setEventListeners();
   }
 

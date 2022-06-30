@@ -1,6 +1,6 @@
 export class Popup {
   constructor(popupSelector) {
-    this._page = document.querySelector('.page')
+    this._page = document.querySelector(".page");
     this._popup = this._page.querySelector(popupSelector);
   }
 
@@ -9,11 +9,11 @@ export class Popup {
     if (evt.key === "Escape") {
       this.close();
     }
-  }
+  };
 
   /* закрытие любого попапа при клике на области кроме окна попапа и через крестик */
   setEventListeners() {
-    this._popup.addEventListener("mousedown", evt => {
+    this._popup.addEventListener("mousedown", (evt) => {
       if (evt.target.classList.contains("popup_opened")) {
         this.close();
       }
@@ -37,7 +37,6 @@ export class Popup {
     document.removeEventListener("keydown", this._handleEscClose);
   }
 }
-
 
 /* 
 Создайте класс Popup, который отвечает за открытие и закрытие попапа. Этот класс:

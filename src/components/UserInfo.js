@@ -9,7 +9,7 @@ export class UserInfo {
       title: this._profileName.textContent,
       description: this._profileDescription.textContent,
     };
-    return data
+    return data;
   }
 
   setUserInfo(data) {
@@ -25,4 +25,3 @@ export class UserInfo {
 Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии. +
 Содержит публичный метод setUserInfo, который принимает новые данные пользователя и добавляет их на страницу. +
 */
-

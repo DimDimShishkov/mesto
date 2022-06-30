@@ -1,21 +1,23 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-  entry: "./src/pages/index.js",
+  entry: {
+    main: "./src/pages/index.js",
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: 'main.js',
-    publicPath: ''
+    filename: "main.js",
+    publicPath: "",
   },
   mode: "development",
   devServer: {
-    static: path.resolve(__dirname, './dist'),
+    static: path.resolve(__dirname, "./dist"),
     compress: true,
     port: 8080,
-    open: true
+    open: true,
   },
 
   module: {
@@ -33,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.html?$/,
-        use: ['html-loader']
+        use: ["html-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)?$/,

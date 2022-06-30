@@ -6,17 +6,23 @@ export const profileInfo = profile.querySelector(".profile__info");
 export const editButton = document.querySelector(".profile__edit-button");
 export const addImageButton = document.querySelector(".profile__add-button");
 export const profileName = document.querySelector(".profile__title");
-export const profileDescription = document.querySelector(".profile__description");
+export const profileDescription = document.querySelector(
+  ".profile__description"
+);
 
 // всплывающее окно для изменения имени профиля
 export const popupInformacion = page.querySelector(".popup_type_info");
-export const popupFormInfo = popupInformacion.querySelector(".popup__form_type_info");
+export const popupFormInfo = popupInformacion.querySelector(
+  ".popup__form_type_info"
+);
 export const profileNameEdit = document.getElementById("title");
 export const profileDescriptionEdit = document.getElementById("description");
 
 // всплывающее окно для добавления картинок
 export const popupImages = page.querySelector(".popup_type_images");
-export const popupFormImages = popupImages.querySelector(".popup__form_type_images");
+export const popupFormImages = popupImages.querySelector(
+  ".popup__form_type_images"
+);
 export const elementsTextEdit = document.getElementById("name");
 export const elementsImageEdit = document.getElementById("link");
 
