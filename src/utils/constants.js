@@ -9,14 +9,19 @@ export const profileName = document.querySelector(".profile__title");
 export const profileDescription = document.querySelector(
   ".profile__description"
 );
+export const profileAvatar = document.querySelector(".profile__avatar");
+export const profileAvatarEditButton = document.querySelector(
+  ".profile__edit-avatar"
+);
 
-// всплывающее окно для изменения имени профиля
+// всплывающее окно для изменения имени профиля и аватара
 export const popupInformacion = page.querySelector(".popup_type_info");
 export const popupFormInfo = popupInformacion.querySelector(
   ".popup__form_type_info"
 );
 export const profileNameEdit = document.getElementById("title");
 export const profileDescriptionEdit = document.getElementById("description");
+export const profileAvatarEdit = document.getElementById("avatar");
 
 // всплывающее окно для добавления картинок
 export const popupImages = page.querySelector(".popup_type_images");
@@ -71,4 +76,12 @@ export const config = {
   inactiveButtonClass: "popup__submit-button_type_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_active",
+};
+
+export const configApi = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-45/",
+  headers: {
+    authorization: "02d68e11-bd2f-4860-a475-a40f4f8a5368",
+    "Content-Type": "application/json",
+  },
 };

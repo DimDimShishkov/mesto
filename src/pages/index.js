@@ -6,23 +6,43 @@ import {
   addImageButton,
   profileName,
   profileDescription,
+  profileAvatar,
   profileNameEdit,
   profileDescriptionEdit,
+  profileAvatarEditButton,
   config,
+  configApi,
+  profileAvatarEdit
 } from "../utils/constants.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import "./index.css";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { Section } from "../components/Section.js";
+import { Api } from "../components/Api.js";
+
+// запрос к серверу
+const api = new Api(configApi);
+
+// Загрузка карточек с сервера
+api.handleDownloadCards().then((res) => {
+  res.forEach((item) => {
+    cardList.addItemPrepend(handleCreateCard(item));
+  });
+});
 
 // создание профиля
-const userInfo = new UserInfo({ profileName, profileDescription });
+const userInfo = new UserInfo({ profileName, profileDescription, profileAvatar });
+api.handleDownloadProfileInfo().then((res) => {
+  userInfo.setUserInfo(res.name, res.about)
+  userInfo.setUserAvatar(res.avatar)
+})
 
-/* создание попапа с вводом инфо в блок профиля */
+// создание попапа с вводом инфо в блок профиля
 const popupFormInfo = new PopupWithForm(".popup_type_info", {
   submitHandler: (data) => {
-    userInfo.setUserInfo(data);
+    api.handleUploadProfileInfo(data);
+    userInfo.setUserInfo(data.title, data.description);
   },
 });
 
@@ -36,7 +56,33 @@ editButton.addEventListener("click", () => {
   profileDescriptionEdit.value = userData.description;
   popupFormInfo.open();
   formValidators["info"].resetValidation();
+  api.handleDownloadProfileInfo().then((res) => {
+    console.log(res)
+  })
 });
+
+// создание попапа со сменой аватара профиля
+const popupFormAvatar = new PopupWithForm(".popup_type_avatar", {
+  submitHandler: (data) => {
+    api.handleUploadProfileAvatar(data);
+    userInfo.setUserAvatar(data.avatar);
+    console.log(data.avatar)
+  },
+});
+
+/* открытие попапа с загрузкой аватара профиля */
+profileAvatarEditButton.addEventListener("click", () => {
+  popupFormAvatar.open();
+  formValidators["new-avatar"].resetValidation();
+  api.handleDownloadProfileInfo().then((res) => {
+    console.log(res.avatar)
+  })
+});
+
+// установка слушателя на попап со сменой аватара профиля
+popupFormAvatar.setEventListeners();
+
+
 
 // функция создания новой карточки
 const handleCreateCard = (item) => {
@@ -48,6 +94,7 @@ const handleCreateCard = (item) => {
 const popupFormImage = new PopupWithForm(".popup_type_images", {
   submitHandler: (item) => {
     cardList.addItemPrepend(handleCreateCard(item));
+    api.handleUploadCard(item);
   },
 });
 
@@ -81,7 +128,7 @@ const cardList = new Section(
 );
 
 // заполнение секции карточками из коробки
-cardList.renderItems();
+/* cardList.renderItems(); */
 
 // создание объекта для валидации
 const formValidators = {};
@@ -101,3 +148,6 @@ const enableValidation = (config) => {
 
 // запуск валидации
 enableValidation(config);
+
+
+

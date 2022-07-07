@@ -2,6 +2,7 @@ export class Card {
   constructor({ item, handleCardClick }, templateSelector) {
     this._link = item.link;
     this._title = item.name;
+    this._likes = item.likes.length
     this._cardSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -19,12 +20,18 @@ export class Card {
     this._cardText = this._element.querySelector(".element__text");
     this._cardLike = this._element.querySelector(".element__like");
     this._cardDelete = this._element.querySelector(".element__remove");
-
+    this._cardLikes = this._element.querySelector(".element__likes");
     this._cardImage.src = `${this._link}`;
     this._cardImage.alt = this._title;
     this._cardText.textContent = this._title;
+    
+    this._cardLikes.textContent = this._likes;
+    if (this._likes > 0) {
+      this._cardLikes.classList.add('element__likes_active')
+    } else {
+      this._cardLikes.classList.remove('element__likes_active')
+    }
     this._setEventListeners();
-
     return this._element;
   }
 
