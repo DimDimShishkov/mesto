@@ -12,7 +12,7 @@ import {
   profileAvatarEditButton,
   config,
   configApi,
-  profileAvatarEdit
+  profileAvatarEdit,
 } from "../utils/constants.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
@@ -24,19 +24,21 @@ import { Api } from "../components/Api.js";
 // запрос к серверу
 const api = new Api(configApi);
 
-// Загрузка карточек с сервера
-api.handleDownloadCards().then((res) => {
-  res.forEach((item) => {
-    cardList.addItemPrepend(handleCreateCard(item));
-  });
-});
-
 // создание профиля
-const userInfo = new UserInfo({ profileName, profileDescription, profileAvatar });
-api.handleDownloadProfileInfo().then((res) => {
-  userInfo.setUserInfo(res.name, res.about)
-  userInfo.setUserAvatar(res.avatar)
-})
+const userInfo = new UserInfo({
+  profileName,
+  profileDescription,
+  profileAvatar,
+});
+api
+  .handleDownloadProfileInfo()
+  .then((res) => {
+    userInfo.setUserInfo(res.name, res.about);
+    userInfo.setUserAvatar(res.avatar);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // создание попапа с вводом инфо в блок профиля
 const popupFormInfo = new PopupWithForm(".popup_type_info", {
@@ -57,8 +59,8 @@ editButton.addEventListener("click", () => {
   popupFormInfo.open();
   formValidators["info"].resetValidation();
   api.handleDownloadProfileInfo().then((res) => {
-    console.log(res)
-  })
+    console.log(res);
+  });
 });
 
 // создание попапа со сменой аватара профиля
@@ -66,7 +68,7 @@ const popupFormAvatar = new PopupWithForm(".popup_type_avatar", {
   submitHandler: (data) => {
     api.handleUploadProfileAvatar(data);
     userInfo.setUserAvatar(data.avatar);
-    console.log(data.avatar)
+    console.log(data.avatar);
   },
 });
 
@@ -75,20 +77,26 @@ profileAvatarEditButton.addEventListener("click", () => {
   popupFormAvatar.open();
   formValidators["new-avatar"].resetValidation();
   api.handleDownloadProfileInfo().then((res) => {
-    console.log(res.avatar)
-  })
+    console.log(res.avatar);
+  });
 });
 
 // установка слушателя на попап со сменой аватара профиля
 popupFormAvatar.setEventListeners();
-
-
 
 // функция создания новой карточки
 const handleCreateCard = (item) => {
   const card = new Card({ item, handleCardClick }, ".image-template");
   return card.generateCard();
 };
+
+// Загрузка карточек с сервера
+api.handleDownloadCards().then((res) => {
+  console.log(res);
+  res.forEach((item) => {
+    cardList.addItemPrepend(handleCreateCard(item));
+  });
+});
 
 /* создание попапа для загрузки новой картинки */
 const popupFormImage = new PopupWithForm(".popup_type_images", {
@@ -116,10 +124,17 @@ const handleCardClick = (link, title) => {
   popupWithImage.open(link, title);
 };
 
+// создание попапа для удаления картинки
+/* const popupDeleteImage = new PopupWithForm(".popup_type_delete-image", {
+  submitHandler: (item) => {
+    //  cardList.addItemPrepend(handleCreateCard(item));
+    api.handleDeleteServerCard(item);
+  },
+}); */
+
 // определение секции, куда положить новые карточки
 const cardList = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       cardList.addItemPrepend(handleCreateCard(item));
     },
@@ -148,6 +163,3 @@ const enableValidation = (config) => {
 
 // запуск валидации
 enableValidation(config);
-
-
-
