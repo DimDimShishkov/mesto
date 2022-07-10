@@ -3,13 +3,15 @@ export class UserInfo {
     this._profileName = profileName;
     this._profileDescription = profileDescription;
     this._avatar = profileAvatar;
+    this._userID = ''
   }
 
   getUserInfo() {
     const data = {
       title: this._profileName.textContent,
       description: this._profileDescription.textContent,
-      avatar: this._avatar.src
+      avatar: this._avatar.src,
+      userID: this._userID,
     };
     return data;
   }
@@ -21,5 +23,9 @@ export class UserInfo {
 
   setUserAvatar(item) {
     this._avatar.src = item
+  }
+
+  setUserID(id) {
+    this._userID = id
   }
 }

@@ -56,11 +56,22 @@ export class Card {
     });
 
     this._cardDelete.addEventListener("click", () => {
-      this._deleteImage();
+      this._handleCardDelete(this._id, this)
+    //  this._deleteImage();
     });
 
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick(this._link, this._title);
     });
+  }
+
+  // вывод иконки удаления карточки 
+  _cardDeleteCan() {
+
+  }
+
+  // удаление карточки
+  deleteImage() {
+    this._element.remove();
   }
 }

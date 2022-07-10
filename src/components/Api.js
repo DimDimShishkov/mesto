@@ -102,10 +102,22 @@ export class Api {
       });
   }
 
-  // Добавление лайков  на картинки
+  // Добавление лайков на картинки
   handleCardLikes(cardId) {
     return fetch(`${this._url}cards/${cardId}/likes`, {
       method: "PUT",
+      headers: this._headers,
+    })
+      .then((res) => this._handleReturn(res))
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Удаление лайков с картинки
+  handleCardDislikes(cardId) {
+    return fetch(`${this._url}cards/${cardId}/likes`, {
+      method: "DELETE",
       headers: this._headers,
     })
       .then((res) => this._handleReturn(res))

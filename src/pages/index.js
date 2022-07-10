@@ -36,10 +36,14 @@ api
   .then((res) => {
     userInfo.setUserInfo(res.name, res.about);
     userInfo.setUserAvatar(res.avatar);
+    userInfo.setUserID(res._id);
+    // console.log(userID);
   })
   .catch((err) => {
     console.log(err);
   });
+
+  console.log(userInfo);
 
 // создание попапа с вводом инфо в блок профиля
 const popupFormInfo = new PopupWithForm(".popup_type_info", {
@@ -100,18 +104,20 @@ profileAvatarEditButton.addEventListener("click", () => {
 
 // функция создания новой карточки
 const handleCreateCard = (item) => {
-  const card = new Card({ item, handleCardClick }, ".image-template");
+  const card = new Card(
+    { item, handleCardClick, handleCardDelete /*handleCardLike */ },
+    ".image-template"
+  );
   return card.generateCard();
 };
 
 // Загрузка карточек с сервера
 api.handleDownloadCards().then((res) => {
-  console.log(res);
+ // console.log(res);
   res.forEach((item) => {
     cardList.addItemPrepend(handleCreateCard(item));
   });
 });
-
 
 /* создание попапа для загрузки новой картинки */
 const popupFormImage = new PopupWithForm(".popup_type_images", {
@@ -140,7 +146,6 @@ addImageButton.addEventListener("click", () => {
   popupFormImage.open();
 });
 
-
 // всплывающее окно для просмотра картинок
 const popupWithImage = new PopupWithImage(".popup_type_image");
 
@@ -153,15 +158,35 @@ const handleCardClick = (link, title) => {
 };
 
 // открытие попапа для удаления картинки
-/* const handleCardDelete = (id, card) => {
-  PopupDeleteCard.open()
-} */
+const handleCardDelete = (id, card) => {
+  popupDeleteCard.submitEvtHandler(() => {
+    handleDeleteConfirm(id, card)
+  });
+  popupDeleteCard.open();
+};
+
+// функция удаления картинки
+const handleDeleteConfirm = (id, card) => {
+  popupDeleteCard.renderLoading(true)
+  api.handleDeleteServerCard(id)
+  .then(() => {
+    card.deleteImage();
+  }).catch((err) => {
+    console.log(err)
+  }).finally(() => {
+    popupDeleteCard.renderLoading(false)
+    popupDeleteCard.close();
+  })
+};
 
 // создание попапа для удаления картинки
-const PopupDeleteCard = new PopupWithConfirmation(".popup_type_delete-image", {
+const popupDeleteCard = new PopupWithConfirmation(
+  ".popup_type_delete-image" /* {
   submitHandler: (item) => {
     PopupDeleteCard.renderLoading(true)
     api.handleDeleteServerCard(item._id).then((res) => {
+      card.deleteImage()
+      PopupDeleteCard.close()
       console.log(res)
     }).catch((err) => {
       console.log(err)
@@ -169,10 +194,11 @@ const PopupDeleteCard = new PopupWithConfirmation(".popup_type_delete-image", {
       PopupDeleteCard.renderLoading(false)
     })
   },
-});
+} */
+);
 
 // установка слушателя на попап для удаления картинки
-PopupDeleteCard.setEventListeners()
+popupDeleteCard.setEventListeners();
 
 // определение секции, куда положить новые карточки
 const cardList = new Section(
