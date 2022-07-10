@@ -11,6 +11,7 @@ export class Card {
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
     this._handleCardLike = handleCardLike;
+    this._item = item
   }
 
   _getTemplate() {
@@ -18,6 +19,14 @@ export class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".element")
       .cloneNode(true);
+  }
+
+  _handleAddLikesNumber() {
+    if (this._cardLikes.textContent > 0) {
+      this._cardLikes.classList.add("element__likes_active");
+    } else {
+      this._cardLikes.classList.remove("element__likes_active");
+    }
   }
 
   generateCard() {
@@ -33,17 +42,25 @@ export class Card {
     this._cardText.textContent = this._title;
 
     this._cardLikes.textContent = this._likes.length;
-    if (this._likes.length > 0) {
-      this._cardLikes.classList.add("element__likes_active");
-    } else {
-      this._cardLikes.classList.remove("element__likes_active");
-    }
+    this._handleAddLikesNumber()
     this._setEventListeners();
     return this._element;
   }
 
-  _toggleLike() {
+  toggleLike() {
     this._cardLike.classList.toggle("element__like_active");
+    if (this._cardLike.classList.contains("element__like_active")) {
+      this._cardLikes.textContent ++
+      this._handleCardLike(this._id, true)
+    } else {
+      this._cardLikes.textContent --
+      this._handleCardLike(this._id, false)
+    }
+    this._handleAddLikesNumber()
+  }
+
+  setLike(data) {
+    this._element.querySelector('.element__likes').textContent = data.likes.length;
   }
 
   _deleteImage() {
@@ -52,7 +69,9 @@ export class Card {
 
   _setEventListeners() {
     this._cardLike.addEventListener("click", () => {
-      this._toggleLike();
+      this.toggleLike();
+      console.log(this._item.owner._id)
+    //  this._handleCardLike(this)
     });
 
     this._cardDelete.addEventListener("click", () => {

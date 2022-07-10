@@ -102,20 +102,28 @@ export class Api {
       });
   }
 
-  // Добавление лайков на картинки
-  handleCardLikes(cardId) {
-    return fetch(`${this._url}cards/${cardId}/likes`, {
-      method: "PUT",
+  // Добавление или удаление лайков на картинку
+  handleCardLikes(cardId, method) {
+    if (method) {
+      this._method = "PUT";
+    } else {
+      this._method = "DELETE";
+    }
+    return fetch(`${this._url}cards/${cardId}/likes `, {
+      method: this._method,
       headers: this._headers,
     })
-      .then((res) => this._handleReturn(res))
+      .then((res) => {
+        console.log(this._method)
+        console.log(`${this._url}cards/${cardId}/likes`)
+        this._handleReturn(res)})
       .catch((err) => {
         console.log(err);
       });
   }
 
   // Удаление лайков с картинки
-  handleCardDislikes(cardId) {
+/*   handleCardDislikes(cardId) {
     return fetch(`${this._url}cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
@@ -124,5 +132,5 @@ export class Api {
       .catch((err) => {
         console.log(err);
       });
-  }
+  } */
 }

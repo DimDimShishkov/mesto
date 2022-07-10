@@ -37,13 +37,14 @@ api
     userInfo.setUserInfo(res.name, res.about);
     userInfo.setUserAvatar(res.avatar);
     userInfo.setUserID(res._id);
-    // console.log(userID);
+  //  console.log(res._id);
+    console.log(userInfo.getUserInfo());
   })
   .catch((err) => {
     console.log(err);
   });
 
-  console.log(userInfo);
+console.log(userInfo.getUserInfo());
 
 // создание попапа с вводом инфо в блок профиля
 const popupFormInfo = new PopupWithForm(".popup_type_info", {
@@ -105,7 +106,7 @@ profileAvatarEditButton.addEventListener("click", () => {
 // функция создания новой карточки
 const handleCreateCard = (item) => {
   const card = new Card(
-    { item, handleCardClick, handleCardDelete /*handleCardLike */ },
+    { item, handleCardClick, handleCardDelete, handleCardLike },
     ".image-template"
   );
   return card.generateCard();
@@ -113,7 +114,7 @@ const handleCreateCard = (item) => {
 
 // Загрузка карточек с сервера
 api.handleDownloadCards().then((res) => {
- // console.log(res);
+  console.log(res);
   res.forEach((item) => {
     cardList.addItemPrepend(handleCreateCard(item));
   });
@@ -159,43 +160,43 @@ const handleCardClick = (link, title) => {
 
 // открытие попапа для удаления картинки
 const handleCardDelete = (id, card) => {
+  console.log(card)
   popupDeleteCard.submitEvtHandler(() => {
-    handleDeleteConfirm(id, card)
+    handleDeleteConfirm(id, card);
   });
   popupDeleteCard.open();
 };
 
 // функция удаления картинки
 const handleDeleteConfirm = (id, card) => {
-  popupDeleteCard.renderLoading(true)
-  api.handleDeleteServerCard(id)
-  .then(() => {
-    card.deleteImage();
-  }).catch((err) => {
-    console.log(err)
-  }).finally(() => {
-    popupDeleteCard.renderLoading(false)
-    popupDeleteCard.close();
-  })
+  popupDeleteCard.renderLoading(true);
+  api
+    .handleDeleteServerCard(id)
+    .then(() => {
+      card.deleteImage();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupDeleteCard.renderLoading(false);
+      popupDeleteCard.close();
+    });
 };
 
-// создание попапа для удаления картинки
-const popupDeleteCard = new PopupWithConfirmation(
-  ".popup_type_delete-image" /* {
-  submitHandler: (item) => {
-    PopupDeleteCard.renderLoading(true)
-    api.handleDeleteServerCard(item._id).then((res) => {
-      card.deleteImage()
-      PopupDeleteCard.close()
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    }).finally(() => {
-      PopupDeleteCard.renderLoading(false)
+// функция установки лайка на картинку
+const handleCardLike = (id, isLiked) => {
+  if (isLiked) { // добавить лайк
+    api.handleCardLikes(id, true).then((res) => {
+
     })
-  },
-} */
-);
+  } else { // убрать лайк
+    api.handleCardLikes(id, false)
+  }
+}
+
+// создание попапа для удаления картинки
+const popupDeleteCard = new PopupWithConfirmation(".popup_type_delete-image");
 
 // установка слушателя на попап для удаления картинки
 popupDeleteCard.setEventListeners();
