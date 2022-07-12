@@ -13,7 +13,7 @@ export class Card {
     this._handleCardDelete = handleCardDelete;
     this._handleCardLike = handleCardLike;
     this._item = item;
-    this._userID = userID; 
+    this._userID = userID;
   }
 
   _getTemplate() {
@@ -24,8 +24,9 @@ export class Card {
   }
 
   // проверка количества лайков
-  handleAddLikesNumber(likes) {
-    this._cardLikes.textContent = likes;
+  handleAddLikesNumber(item) {
+    this._cardLikes.textContent = item.likes.length;
+    this._handleAddLikesActive(item);
     if (this._cardLikes.textContent > 0) {
       this._cardLikes.classList.add("element__likes_active");
     } else {
@@ -34,8 +35,8 @@ export class Card {
   }
 
   // проверка наличия моих лайков
-  _handleAddLikesActive() {
-    if (this._likesCallback()) {
+  _handleAddLikesActive(item) {
+    if (this._likesCallback(item)) {
       this._cardLike.classList.add("element__like_active");
     } else {
       this._cardLike.classList.remove("element__like_active");
@@ -51,27 +52,21 @@ export class Card {
     this._cardLikes = this._element.querySelector(".element__likes");
     this._cardImage.src = `${this._link}`;
     this._cardImage.alt = this._title;
-    this._cardImage.id = this._id;
     this._cardText.textContent = this._title;
-
     this._cardLikes.textContent = this._likes.length;
     this._handleHideDeleteButton();
-    this.handleAddLikesNumber(this._likes.length);
-    this._handleAddLikesActive();
+    this.handleAddLikesNumber(this._item);
+    this._handleAddLikesActive(this._item);
     this._setEventListeners();
     return this._element;
   }
 
-  toggleLike() {
+  _toggleLike() {
     if (this._cardLike.classList.contains("element__like_active")) {
-      this._handleCardLike(this._id, false, this._element);
-       this._cardLikes.textContent--;
+      this._handleCardLike(this._id, false, this);
     } else {
-      this._handleCardLike(this._id, true, this._element);
-       this._cardLikes.textContent++;
+      this._handleCardLike(this._id, true, this);
     }
-    this._cardLike.classList.toggle("element__like_active");
-     this.handleAddLikesNumber(this._cardLikes.textContent);
   }
 
   // вывод иконки удаления карточки
@@ -83,14 +78,14 @@ export class Card {
     }
   }
 
-  // условие наличия среди лайков моих 
-  _likesCallback() {
-    return this._item.likes.some(like => like._id == this._userID)
+  // условие наличия среди лайков моих
+  _likesCallback(item) {
+    return item.likes.some((like) => like._id == this._userID);
   }
 
   _setEventListeners() {
     this._cardLike.addEventListener("click", () => {
-       this.toggleLike();
+      this._toggleLike();
     });
 
     this._cardDelete.addEventListener("click", () => {

@@ -21,11 +21,7 @@ export class Api {
         name: data.title,
         about: data.description,
       }),
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => this._handleReturn(res));
   }
 
   // Редактирование аватара профиля
@@ -36,11 +32,7 @@ export class Api {
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => this._handleReturn(res));
   }
 
   // Загрузка информации о пользователе с сервера
@@ -48,11 +40,7 @@ export class Api {
     return fetch(`${this._url}users/me`, {
       method: "GET",
       headers: this._headers,
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => this._handleReturn(res));
   }
 
   // Загрузка карточек с сервера
@@ -60,11 +48,7 @@ export class Api {
     return fetch(`${this._url}cards`, {
       method: "GET",
       headers: this._headers,
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => this._handleReturn(res));
   }
 
   // Загрузка карточек на сервер
@@ -76,11 +60,7 @@ export class Api {
         name: item.name,
         link: item.link,
       }),
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => this._handleReturn(res));
   }
 
   // Удаление картинки
@@ -88,11 +68,7 @@ export class Api {
     return fetch(`${this._url}cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => this._handleReturn(res));
   }
 
   // Добавление или удаление лайков на картинку
@@ -105,12 +81,8 @@ export class Api {
     return fetch(`${this._url}cards/${cardId}/likes `, {
       method: this._method,
       headers: this._headers,
-    })
-      .then((res) => {
-        return this._handleReturn(res)})
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      return this._handleReturn(res);
+    });
   }
-
 }

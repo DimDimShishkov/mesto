@@ -34,7 +34,6 @@ export class PopupWithForm extends Popup {
   _submitEvtHandler(evt) {
     evt.preventDefault();
     this._submitHandler(this._getInputValues());
-    this.close();
   }
 
   /* Метод setEventListeners с добавленным обработчиком сабмита формы*/

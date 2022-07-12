@@ -11,7 +11,7 @@ import {
   profileAvatarEditButton,
   config,
   configApi,
-  } from "../utils/constants.js";
+} from "../utils/constants.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import "./index.css";
@@ -35,24 +35,17 @@ api
     userInfo.setUserInfo(res.name, res.about);
     userInfo.setUserAvatar(res.avatar);
     userInfo.setUserID(res._id);
-
-    api.handleDownloadCards().then((resourses) => {
-      const initialCardList = new Section(
-        {
-          items: resourses,
-          renderer: (item) => {
-            const card = new Card(
-              { item, handleCardClick, handleCardDelete, handleCardLike, },
-              ".image-template", res._id
-            );
-            const renderCard = card.generateCard();
-            initialCardList.addItemAppend(renderCard);
-          },
-        },
-        ".elements"
-      );
-      initialCardList.renderItems();
-    });
+    // Загрузка карточек с сервера
+    api
+      .handleDownloadCards()
+      .then((res) => {
+        res.forEach((item) => {
+          cardList.addItemAppend(handleCreateCard(item));
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   })
   .catch((err) => {
     console.log(err);
@@ -66,6 +59,7 @@ const popupFormInfo = new PopupWithForm(".popup_type_info", {
       .handleUploadProfileInfo(data)
       .then((res) => {
         userInfo.setUserInfo(res.name, res.about);
+        popupFormInfo.close();
       })
       .catch((err) => {
         console.log(err);
@@ -96,6 +90,7 @@ const popupFormAvatar = new PopupWithForm(".popup_type_avatar", {
       .handleUploadProfileAvatar(data)
       .then((res) => {
         userInfo.setUserAvatar(res.avatar);
+        popupFormAvatar.close();
       })
       .catch((err) => {
         console.log(err);
@@ -119,18 +114,11 @@ profileAvatarEditButton.addEventListener("click", () => {
 const handleCreateCard = (item) => {
   const card = new Card(
     { item, handleCardClick, handleCardDelete, handleCardLike },
-    ".image-template", userInfo._userID
+    ".image-template",
+    userInfo._userID
   );
   return card.generateCard();
 };
-
-// Загрузка карточек с сервера
-/* api.handleDownloadCards().then((res) => {
-  // console.log(res);
-  res.forEach((item) => {
-    cardList.addItemAppend(handleCreateCard(item));
-  });
-}); */
 
 /* создание попапа для загрузки новой картинки */
 const popupFormImage = new PopupWithForm(".popup_type_images", {
@@ -140,6 +128,7 @@ const popupFormImage = new PopupWithForm(".popup_type_images", {
       .handleUploadCard(item)
       .then((res) => {
         cardList.addItemPrepend(handleCreateCard(res));
+        popupFormImage.close();
       })
       .catch((err) => {
         console.log(err);
@@ -185,13 +174,13 @@ const handleDeleteConfirm = (id, card) => {
     .handleDeleteServerCard(id)
     .then(() => {
       card.deleteImage();
+      popupDeleteCard.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
       popupDeleteCard.renderLoading(false);
-      popupDeleteCard.close();
     });
 };
 
@@ -201,15 +190,22 @@ const handleCardLike = (id, isLiked, card) => {
     // добавить лайк
     api
       .handleCardLikes(id, true)
+      .then((res) => {
+        card.handleAddLikesNumber(res);
+      })
       .catch((err) => {
         console.log(err);
       });
   } else {
     // убрать лайк
-    api.handleCardLikes(id, false)
-    .catch((err) => {
-      console.log(err);
-    });
+    api
+      .handleCardLikes(id, false)
+      .then((res) => {
+        card.handleAddLikesNumber(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 };
 
@@ -229,7 +225,7 @@ const cardList = new Section(
   ".elements"
 );
 
-// заполнение секции карточками из коробки
+// заполнение секции карточками из коробки для теста адекватности
 /* cardList.renderItems(); */
 
 // создание объекта для валидации
