@@ -12,13 +12,6 @@ export class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  // уведомление о процессе загрузки (test)
-  /*   _renderLoading(button, isLoading) {
-    if (isLoading) {
-    }
-  }
- */
-
   // Редактирование профиля
   handleUploadProfileInfo(data) {
     return fetch(`${this._url}users/me`, {
@@ -114,23 +107,10 @@ export class Api {
       headers: this._headers,
     })
       .then((res) => {
-        console.log(this._method)
-        console.log(`${this._url}cards/${cardId}/likes`)
-        this._handleReturn(res)})
+        return this._handleReturn(res)})
       .catch((err) => {
         console.log(err);
       });
   }
 
-  // Удаление лайков с картинки
-/*   handleCardDislikes(cardId) {
-    return fetch(`${this._url}cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    })
-      .then((res) => this._handleReturn(res))
-      .catch((err) => {
-        console.log(err);
-      });
-  } */
 }
