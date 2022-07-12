@@ -16,7 +16,7 @@
 .profile__add-button{background:url(images/AddButtonDesctop.13997fdf54b4cb323817.svg) 50% no-repeat;border:none;border-radius:2px;cursor:pointer;height:50px;margin:0 0 0 auto;padding:0;transition:all .3s ease;width:150px}.profile__add-button:hover{opacity:.6}@media screen and (max-width:940px){.profile__add-button{background:url(images/AddButtonMobile.8e041299935e2fbbe15e.svg) 50% no-repeat;margin:35px 0 0;width:282px}}
 .elements{box-sizing:border-box;display:grid;gap:20px 17px;grid-template-columns:repeat(3,1fr);justify-items:center;margin:0 auto;padding:48px 0 0}@media screen and (max-width:940px){.elements{grid-template-columns:repeat(2,1fr);padding:35px 0 0}}@media screen and (max-width:660px){.elements{grid-template-columns:repeat(1,1fr)}}
 .element{border-radius:10px;box-sizing:border-box;display:flex;flex-direction:column;margin:0;overflow:hidden;padding:0;position:relative;width:282px}
-.element__image{height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:282px}
+.element__image{height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;transition:all .3s ease;width:282px}.element__image:hover{transform:scale(1.1)}
 .element__title{align-items:center;background-color:#fff;box-sizing:border-box;color:#000;display:flex;justify-content:space-between;min-height:79px;padding:20px}
 .element__text{font-size:24px;font-style:normal;font-weight:900;line-height:29px;margin:0;max-width:200px;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}
 .element__item{align-items:center;display:flex;flex-direction:column;justify-content:space-between}
