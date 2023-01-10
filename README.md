@@ -19,11 +19,14 @@
 
 - [проектная работа 4](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1) (верстка и создание форм)
 - [чек-лист для проектной работы 4](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-4.pdf)
-- [проектная работа 5](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1) (добавление опций смены имени профиля и загрузки своих изображений)
+- [макет для проектной работы 5](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1) (добавление опций смены имени профиля и загрузки своих изображений)
 - [чек-лист для проектной работы 5](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-5.pdf)
-- [проектная работа 6 и 7](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1) (валидация форм, рефакторинг кода и создание классов)
+- [макет для проектной работы 6, 7 и 8](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1) (валидация форм, рефакторинг кода и создание классов)
 - [чек-лист для проектной работы 6](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-6.pdf)
 - [чек-лист для проектной работы 7](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-7.pdf)
+- [чек-лист для проектной работы 8](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-8.pdf)
+- [макет для проектной работы 9](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?node-id=0%3A1) (подключение к серверу: загрузка информации и аватара пользователя, загрузка карточек, редактирование профиля и аватара, добавление и удаление карточки, постановка и снятие лайка, улучшенный UX всех форм)
+- [чек-лист для проектной работы 9](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-9.pdf)
 
 # Функционал:
 
