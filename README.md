@@ -1,5 +1,7 @@
 # Проектная работа "Место"
 
+![image](https://raw.githubusercontent.com/DimDimShishkov/mesto/main/mesto.gif)
+
 ### Обзор
 
 - Описание
