@@ -1,0 +1,14 @@
+.page {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
+  background: #000;
+  min-width: 320px;
+  max-width: 880px;
+  font-family: 'Inter', sans-serif, Arial;
+  color: #fff;
+  text-rendering: optimizeLegibility;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
